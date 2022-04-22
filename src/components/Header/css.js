@@ -41,7 +41,7 @@ export const LogoImg = styled.img`
 
 export const LogoText = styled.span`
 	font-weight: 600;
-	font-size: 42px;
+	font-size: 30px;
 
 	@media (max-width: 760px) {
 		display: none;
