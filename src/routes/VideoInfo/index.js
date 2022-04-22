@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import {
 	VideoPlayerWrapper,
 	YouTubeVideoWrapper,
-	YouTubeVideo,
 	YouTubeVideoInfo,
 	YouTubeVideoTitle,
 	YouTubeVideoData,
@@ -23,18 +22,11 @@ export default function VideoPlayerRoute() {
 
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
 
-	if (error) return <div>failed to load</div>;
-	if (!data) return <div>loading...</div>;
+	if (error || !data) return;
 
 	return (
 		<VideoPlayerWrapper>
 			<YouTubeVideoWrapper>
-				<YouTubeVideo
-					src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-					frameborder="0"
-					allow="autoplay"
-					allowFullScreen
-				/>
 				<YouTubeVideoInfo>
 					<YouTubeVideoTitle>{data.data.title}</YouTubeVideoTitle>
 					<YouTubeVideoData>
@@ -43,7 +35,6 @@ export default function VideoPlayerRoute() {
 					<YouTubeVideoDescription>{data.data.description}</YouTubeVideoDescription>
 				</YouTubeVideoInfo>
 			</YouTubeVideoWrapper>
-			{/* <SideMenu></SideMenu> */}
 		</VideoPlayerWrapper>
 	);
 }

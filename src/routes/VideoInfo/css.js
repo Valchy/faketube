@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const VideoPlayerWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	margin-top: ${({ theme }) => theme.topMargin};
-	padding: ${({ theme }) => theme.padding};
 `;
 
 export const YouTubeVideoWrapper = styled.div`

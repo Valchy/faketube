@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 export const YouTubePlayerContext = createContext();
 
 export function YouTubePlayerProvider({ children }) {
-	const search = useLocation().search;
+	const { pathname, search } = useLocation();
 	const q = new URLSearchParams(search).get('q');
 	const w = new URLSearchParams(search).get('w');
 	const [videoSearch, setVideoSearch] = useState(q || '');
@@ -22,7 +22,8 @@ export function YouTubePlayerProvider({ children }) {
 				darkMode,
 				setDarkMode,
 				showVideoOnSearch,
-				setShowVideoOnSearch
+				setShowVideoOnSearch,
+				pathname
 			}}
 		>
 			{children}

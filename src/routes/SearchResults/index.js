@@ -26,8 +26,7 @@ export default function SearchRoute() {
 
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
 
-	if (error) return <div>failed to load</div>;
-	if (!data) return <div>loading...</div>;
+	if (error || data) return;
 
 	const videoClickHandler = vidId => {
 		setShowVideoOnSearch(false);
