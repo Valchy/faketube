@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import {
@@ -20,15 +20,16 @@ import nightImg from '../../imgs/night.png';
 import dayImg from '../../imgs/day.png';
 
 export default function Header() {
-	const [searchParams, setSearchParams] = useSearchParams();
 	const { darkMode, videoSearch, setVideoSearch } = useContext(YouTubePlayerContext);
 	const [search, setSearch] = useState(videoSearch);
+	const navigate = useNavigate();
 
 	const handleSearch = e => {
 		e.preventDefault();
+		if (!search) return navigate('/');
 
 		setVideoSearch(search);
-		setSearchParams({ ...searchParams, q: search });
+		navigate(`/search?${search}`, { replace: true });
 	};
 
 	return (
