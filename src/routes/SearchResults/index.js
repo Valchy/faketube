@@ -16,7 +16,7 @@ import {
 } from './css';
 
 export default function SearchRoute() {
-	const { videoSearch } = useContext(YouTubePlayerContext);
+	const { videoSearch, setVideoId } = useContext(YouTubePlayerContext);
 	const fetcher = url =>
 		axios.get(url, {
 			headers: {
@@ -34,7 +34,7 @@ export default function SearchRoute() {
 			{data.data && data.data.status !== false && (
 				<SearchResults>
 					{data.data.map(({ id: { videoId }, title, description, views, snippet: { duration, publishedAt, thumbnails } }) => (
-						<VideoResultWrapper key={videoId} to={`/video?w=${videoId}`}>
+						<VideoResultWrapper key={videoId} to={`/video?w=${videoId}`} onClick={() => setVideoId(videoId)}>
 							<VideoThumbnailWrapper>
 								<VideoThumbnail src={thumbnails.default.url} />
 								<VideoDuration>{duration}</VideoDuration>

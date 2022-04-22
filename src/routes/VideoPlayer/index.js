@@ -29,7 +29,12 @@ export default function VideoPlayerRoute() {
 	return (
 		<VideoPlayerWrapper>
 			<YouTubeVideoWrapper>
-				<YouTubeVideo src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} frameborder="0" />
+				<YouTubeVideo
+					src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+					frameborder="0"
+					allow="autoplay"
+					allowFullScreen
+				/>
 				<YouTubeVideoInfo>
 					<YouTubeVideoTitle>{data.data.title}</YouTubeVideoTitle>
 					<YouTubeVideoData>
