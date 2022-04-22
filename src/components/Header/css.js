@@ -39,7 +39,7 @@ export const LogoImg = styled.img`
 	margin-right: 10px;
 `;
 
-export const LogoText = styled.span`
+export const LogoText = styled.h1`
 	font-weight: 600;
 	font-size: 30px;
 
