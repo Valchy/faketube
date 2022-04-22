@@ -64,9 +64,3 @@ export const VideoInfoDescription = styled.p`
 	color: ${({ theme }) => theme.secondary};
 	margin-top: 30px;
 `;
-
-export const WelcomeText = styled.h1`
-	font-size: 28px;
-	font-weight: 600;
-	margin-top: 30px;
-`;

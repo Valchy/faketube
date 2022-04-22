@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Navbar = styled.header`
 	width: 100vw;
@@ -16,11 +17,12 @@ export const Navbar = styled.header`
 	right: 0;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled(Link)`
 	display: flex;
 	align-items: center;
 	flex-grow: 1;
 	flex-basis: 0;
+	color: ${({ theme }) => theme.secondary};
 `;
 
 export const LogoImg = styled.img`

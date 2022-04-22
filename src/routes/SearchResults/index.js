@@ -12,14 +12,18 @@ import {
 	VideoInfo,
 	VideoInfoTitle,
 	VideoInfoData,
-	VideoInfoDescription,
-	WelcomeText
+	VideoInfoDescription
 } from './css';
 
 export default function SearchRoute() {
 	const { videoSearch } = useContext(YouTubePlayerContext);
+	const fetcher = url =>
+		axios.get(url, {
+			headers: {
+				'Access-Control-Allow-Origin': true
+			}
+		});
 
-	const fetcher = url => axios.get(url);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
 
 	if (error) return <div>failed to load</div>;
@@ -27,7 +31,7 @@ export default function SearchRoute() {
 
 	return (
 		<SearchResultsWrapper>
-			{data.data && data.data.status !== false ? (
+			{data.data && data.data.status !== false && (
 				<SearchResults>
 					{data.data.map(({ id: { videoId }, title, description, views, snippet: { duration, publishedAt, thumbnails } }) => (
 						<VideoResultWrapper key={videoId} to={`/video?w=${videoId}`}>
@@ -45,8 +49,6 @@ export default function SearchRoute() {
 						</VideoResultWrapper>
 					))}
 				</SearchResults>
-			) : (
-				<WelcomeText>Welcome to my YouTube Player</WelcomeText>
 			)}
 		</SearchResultsWrapper>
 	);

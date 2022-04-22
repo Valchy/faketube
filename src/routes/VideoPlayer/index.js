@@ -14,27 +14,35 @@ import {
 
 export default function VideoPlayerRoute() {
 	const { videoId } = useContext(YouTubePlayerContext);
-	const fetcher = url => axios.get(url);
+	const fetcher = url =>
+		axios.get(url, {
+			headers: {
+				'Access-Control-Allow-Origin': true
+			}
+		});
+
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
-	console.log(data.data);
-
 	return (
 		<VideoPlayerWrapper>
 			<YouTubeVideoWrapper>
-				<YouTubeVideo src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} />
+				<YouTubeVideo src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} frameborder="0" />
 				<YouTubeVideoInfo>
-					<YouTubeVideoTitle>{data.title}</YouTubeVideoTitle>
+					<YouTubeVideoTitle>{data.data.title}</YouTubeVideoTitle>
 					<YouTubeVideoData>
-						{data.views} • {data.datePublished}
+						{numberWithCommas(data.data.views)} views • {data.data.datePublished}
 					</YouTubeVideoData>
-					<YouTubeVideoDescription>{data.description}</YouTubeVideoDescription>
+					<YouTubeVideoDescription>{data.data.description}</YouTubeVideoDescription>
 				</YouTubeVideoInfo>
 			</YouTubeVideoWrapper>
 			{/* <SideMenu></SideMenu> */}
 		</VideoPlayerWrapper>
 	);
+}
+
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

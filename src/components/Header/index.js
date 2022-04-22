@@ -26,13 +26,14 @@ export default function Header() {
 
 	const handleSearch = e => {
 		e.preventDefault();
+
 		setVideoSearch(search);
 		setSearchParams({ ...searchParams, q: search });
 	};
 
 	return (
 		<Navbar>
-			<Logo>
+			<Logo to="/">
 				<LogoImg src={ytImg} />
 				<LogoText>YTPD</LogoText>
 			</Logo>
