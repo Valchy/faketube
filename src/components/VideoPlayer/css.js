@@ -13,8 +13,14 @@ export const YouTubeVideoWrapper = styled.div`
 	max-width: 95vw;
 	position: ${({ showVideoOnSearch }) => (showVideoOnSearch ? 'fixed' : 'relative')};
 	z-index: 8;
-	bottom: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '30px' : 'auto')};
-	right: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '30px' : 'auto')};
+	bottom: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
+	right: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
+
+	@media (max-width: 500) {
+		bottom: auto;
+		right: auto;
+		width: 90vw;
+	}
 `;
 
 export const YouTubeVideo = styled.iframe`
