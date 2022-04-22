@@ -8,8 +8,7 @@ export const VideoPlayerWrapper = styled.div`
 	padding-bottom: 0;
 
 	@media (max-width: 500px) {
-		padding: 0;
-		margin: 0;
+		margin-left: 20px;
 	}
 `;
 
