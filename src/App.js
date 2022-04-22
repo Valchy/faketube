@@ -3,6 +3,7 @@ import ThemeProvider from './context/ThemeContext';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 import Header from './components/Header';
+import VideoIframe from './components/VideoIframe';
 import SearchResults from './routes/SearchResults';
 import VideoPlayer from './routes/VideoPlayer';
 import WelcomeText from './routes/WelcomeText';
@@ -20,6 +21,7 @@ function App() {
 					<Route path="/video" element={<VideoPlayer />} />
 					<Route path="/*" element={<PageNotFound />} />
 				</Routes>
+				<VideoIframe />
 			</ThemeProvider>
 		</YouTubePlayerProvider>
 	);

@@ -20,7 +20,7 @@ import nightImg from '../../imgs/night.png';
 import dayImg from '../../imgs/day.png';
 
 export default function Header() {
-	const { darkMode, videoSearch, setVideoSearch } = useContext(YouTubePlayerContext);
+	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const [search, setSearch] = useState(videoSearch);
 	const navigate = useNavigate();
 
@@ -28,13 +28,15 @@ export default function Header() {
 		e.preventDefault();
 		if (!search) return navigate('/');
 
+		if (videoId) setShowVideoOnSearch(true);
+
 		setVideoSearch(search);
-		navigate(`/search?${search}`, { replace: true });
+		navigate(`/search?q=${search}`, { replace: true });
 	};
 
 	return (
 		<Navbar>
-			<Logo to="/">
+			<Logo to="/" onClick={() => setVideoId('')}>
 				<LogoImg src={ytImg} />
 				<LogoText>FakeTube</LogoText>
 			</Logo>
