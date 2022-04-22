@@ -6,8 +6,9 @@ export const YouTubePlayerContext = createContext();
 export function YouTubePlayerProvider({ children }) {
 	const search = useLocation().search;
 	const q = new URLSearchParams(search).get('q');
+	const w = new URLSearchParams(search).get('w');
 	const [videoSearch, setVideoSearch] = useState(q || '');
-	const [videoId, setVideoId] = useState('xORdz1Hi9Gc');
+	const [videoId, setVideoId] = useState(w || '');
 	const [darkMode, setDarkMode] = useState(true);
 
 	return (

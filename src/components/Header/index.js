@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import {

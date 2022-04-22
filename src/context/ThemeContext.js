@@ -10,7 +10,8 @@ export default function ThemeContext({ children }) {
 		background: darkMode ? '#181818' : '#fff',
 		border: darkMode ? '#303030' : '#fafafa',
 		input: darkMode ? '#121212' : '#fff',
-		topPadding: 60
+		padding: '60px 0',
+		topMargin: '60px'
 	};
 
 	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;

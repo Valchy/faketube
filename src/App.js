@@ -16,7 +16,7 @@ function App() {
 				<Header />
 				<Routes>
 					<Route path="/" element={<SearchResults />} />
-					<Route path="/video/:videoId" element={<VideoPlayer />} />
+					<Route path="/video" element={<VideoPlayer />} />
 					<Route path="/*" element={<PageNotFound />} />
 				</Routes>
 				{/* <Footer /> */}

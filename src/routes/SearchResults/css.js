@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const SearchResultsWrapper = styled.div`
 	display: flex;
-	margin-top: ${({ theme }) => theme.topPadding}px;
-	padding: 60px 10px;
 	justify-content: center;
+	margin-top: ${({ theme }) => theme.topMargin};
+	padding: ${({ theme }) => theme.padding};
 `;
 
 export const SearchResults = styled.div`
@@ -12,7 +13,7 @@ export const SearchResults = styled.div`
 	flex-direction: column;
 `;
 
-export const VideoResultWrapper = styled.div`
+export const VideoResultWrapper = styled(Link)`
 	display: flex;
 	width: 800px;
 	height: 200px;
@@ -59,7 +60,13 @@ export const VideoInfoData = styled.span`
 `;
 
 export const VideoInfoDescription = styled.p`
-	font-size: 15px;
+	font-size: 14px;
 	color: ${({ theme }) => theme.secondary};
+	margin-top: 30px;
+`;
+
+export const WelcomeText = styled.h1`
+	font-size: 28px;
+	font-weight: 600;
 	margin-top: 30px;
 `;

@@ -4,7 +4,8 @@ export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 60px 0;
+	padding: ${({ theme }) => theme.padding};
+	margin-top: ${({ theme }) => theme.topMargin};
 `;
 
 export const Title = styled.h1`
