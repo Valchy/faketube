@@ -15,6 +15,10 @@ export const Navbar = styled.header`
 	top: 0;
 	left: 0;
 	right: 0;
+
+	@media (max-width: 640px) {
+		padding: 0 5px;
+	}
 `;
 
 export const Logo = styled(Link)`
@@ -22,7 +26,12 @@ export const Logo = styled(Link)`
 	align-items: center;
 	flex-grow: 1;
 	flex-basis: 0;
+	margin-right: 35px;
 	color: ${({ theme }) => theme.secondary};
+
+	@media (max-width: 640px) {
+		margin-right: 0;
+	}
 `;
 
 export const LogoImg = styled.img`
@@ -33,7 +42,10 @@ export const LogoImg = styled.img`
 export const LogoText = styled.span`
 	font-weight: 600;
 	font-size: 42px;
-	text-transform: uppercase;
+
+	@media (max-width: 760px) {
+		display: none;
+	}
 `;
 
 export const SearchForm = styled.form`
@@ -46,6 +58,10 @@ export const SearchForm = styled.form`
 	background-color: ${({ theme }) => theme.input};
 	border: 1px solid ${({ theme }) => theme.border};
 	height: 40px;
+
+	@media (max-width: 760px) {
+		width: 60%;
+	}
 `;
 
 export const SearchInput = styled.input`
@@ -63,6 +79,10 @@ export const SearchButton = styled.button`
 	padding: 10px 15px;
 	display: flex;
 	align-items: center;
+
+	@media (max-width: 640px) {
+		padding: 5px;
+	}
 `;
 
 export const SearchButtonImg = styled.img`
@@ -72,6 +92,10 @@ export const SearchButtonImg = styled.img`
 
 export const SearchButtonText = styled.span`
 	color: ${({ theme }) => theme.primary};
+
+	@media (max-width: 640px) {
+		display: none;
+	}
 `;
 
 export const ThemeWrapper = styled.div`
@@ -79,6 +103,7 @@ export const ThemeWrapper = styled.div`
 	flex-basis: 0;
 	display: flex;
 	justify-content: flex-end;
+	margin-left: 20px;
 `;
 
 export const ThemeImg = styled.img`

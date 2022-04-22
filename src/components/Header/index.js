@@ -36,7 +36,7 @@ export default function Header() {
 		<Navbar>
 			<Logo to="/">
 				<LogoImg src={ytImg} />
-				<LogoText>YTPD</LogoText>
+				<LogoText>FakeTube</LogoText>
 			</Logo>
 			<SearchForm onSubmit={handleSearch}>
 				<SearchInput value={search} onChange={({ target }) => setSearch(target.value)} placeholder="Go for anything..." />
