@@ -1,38 +1,20 @@
-import Logo from './Logo';
+import Menu from './Menu';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Faketube/Logo',
-	component: Logo,
-	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
+	title: 'Faketube/Menu',
+	component: <Menu />,
 	argTypes: {
-		text: 'Faketube'
+		darkMode: {
+			name: 'Switch between light and dark mode'
+		}
 	}
 };
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = args => <Logo {...args} />;
-
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-	primary: true,
-	label: 'Logo'
+const Template = args => {
+	return <Menu {...args} />;
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-	label: 'Logo'
-};
-
-export const Large = Template.bind({});
-Large.args = {
-	size: 'large',
-	label: 'Logo'
-};
-
-export const Small = Template.bind({});
-Small.args = {
-	size: 'small',
-	label: 'Logo'
+export const Default = Template.bind({});
+Default.args = {
+	darkMode: true
 };

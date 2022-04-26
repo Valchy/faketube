@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { Navbar } from './css';
 import Logo from './Logo';
@@ -22,8 +22,8 @@ export default function Header() {
 
 	return (
 		<Navbar>
-			<Logo setVideoId={setVideoId} text="FakeTube" />
-			<Search handleSearch={handleSearch} videoSearch={videoSearch} placeholder="Go for anything..." />
+			<Logo setVideoId={setVideoId} text="FakeTube" alt="Cartoonish looking youtube logo" />
+			<Search handleSearch={handleSearch} videoSearch={videoSearch} buttonText="Search" placeholder="Go for anything..." />
 			<Menu darkMode={darkMode} />
 		</Navbar>
 	);

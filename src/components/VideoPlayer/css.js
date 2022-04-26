@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import YouTube from 'react-youtube';
+import ReactYouTube from 'react-youtube';
 
 export const VideoPlayerWrapper = styled.div`
 	display: flex;
@@ -30,12 +30,18 @@ export const YouTubeVideoWrapper = styled.div`
 	}
 `;
 
-export const YouTubeVideo = styled(YouTube)`
+export const YouTube = styled(ReactYouTube)`
 	width: 100%;
+	height: 100%;
 	aspect-ratio: 16 / 9;
 	align-self: flex-end;
 
 	@media (max-width: 500px) {
 		width: calc(100vw - 20px);
 	}
+`;
+
+export const YouTubeSmall = styled(ReactYouTube)`
+	width: 200px;
+	height: 112.5px;
 `;

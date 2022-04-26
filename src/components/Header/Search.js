@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { SearchForm, SearchInput, SearchButton, SearchButtonImg, SearchButtonText } from './css';
 import searchImg from '../../imgs/searchLogo.svg';
 
-export default function Search({ handleSearch = () => {}, videoSearch = '', placeholder = '' }) {
+export default function Search({ handleSearch = () => {}, videoSearch = '', buttonText = '', placeholder = '' }) {
 	const [search, setSearch] = useState(videoSearch);
 
 	return (
@@ -10,7 +10,7 @@ export default function Search({ handleSearch = () => {}, videoSearch = '', plac
 			<SearchInput value={search} onChange={({ target }) => setSearch(target.value)} placeholder={placeholder} />
 			<SearchButton>
 				<SearchButtonImg src={searchImg} />
-				<SearchButtonText>Search</SearchButtonText>
+				<SearchButtonText>{buttonText}</SearchButtonText>
 			</SearchButton>
 		</SearchForm>
 	);

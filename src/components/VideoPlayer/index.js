@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import { VideoPlayerWrapper, YouTubeVideoWrapper, YouTubeVideo } from './css';
+import { VideoPlayerWrapper, YouTubeVideoWrapper } from './css';
+import YouTubeVideo from './YouTubeVideo';
 
 export default function VideoPlayer() {
 	const { videoId, showVideoOnSearch, pathname } = useContext(YouTubePlayerContext);
@@ -16,18 +17,7 @@ export default function VideoPlayer() {
 	return (
 		<VideoPlayerWrapper showVideoOnSearch={showVideoOnSearch}>
 			<YouTubeVideoWrapper showVideoOnSearch={showVideoOnSearch}>
-				<YouTubeVideo
-					videoId={videoId}
-					onStateChange={e => checkElapsedTime(e)}
-					title="YouTube Video"
-					allowFullScreen
-					opts={{
-						playerVars: {
-							autoplay: 1,
-							start: 0
-						}
-					}}
-				/>
+				<YouTubeVideo videoId={videoId} checkElapsedTime={checkElapsedTime} />
 			</YouTubeVideoWrapper>
 		</VideoPlayerWrapper>
 	);

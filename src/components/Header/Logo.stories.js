@@ -1,16 +1,24 @@
 import Logo from './Logo';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
 	title: 'Faketube/Logo',
-	component: Logo,
-	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
+	component: <Logo />,
 	argTypes: {
-		text: 'Faketube'
+		text: {
+			name: 'Title text'
+		},
+		alt: {
+			name: 'Image alt text'
+		}
 	}
 };
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = args => <Logo {...args} />;
+const Template = args => {
+	return <Logo {...args} />;
+};
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
+Default.args = {
+	text: 'FakeTube',
+	alt: 'Cartoonish looking youtube logo'
+};
