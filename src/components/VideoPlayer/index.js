@@ -7,15 +7,26 @@ export default function VideoPlayer() {
 
 	if ((!showVideoOnSearch && pathname !== '/video') || !videoId) return;
 
+	const checkElapsedTime = e => {
+		const duration = e.target.getDuration();
+		const currentTime = e.target.getCurrentTime();
+		console.log(e.target.playerInfo, duration, currentTime);
+	};
+
 	return (
 		<VideoPlayerWrapper showVideoOnSearch={showVideoOnSearch}>
 			<YouTubeVideoWrapper showVideoOnSearch={showVideoOnSearch}>
 				<YouTubeVideo
-					src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-					frameborder="0"
-					allow="autoplay; encrypted-media"
+					videoId={videoId}
+					onStateChange={e => checkElapsedTime(e)}
 					title="YouTube Video"
 					allowFullScreen
+					opts={{
+						playerVars: {
+							autoplay: 1,
+							start: 0
+						}
+					}}
 				/>
 			</YouTubeVideoWrapper>
 		</VideoPlayerWrapper>

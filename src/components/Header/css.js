@@ -21,7 +21,7 @@ export const Navbar = styled.header`
 	}
 `;
 
-export const Logo = styled(Link)`
+export const LogoWrapper = styled(Link)`
 	display: flex;
 	align-items: center;
 	flex-grow: 1;
