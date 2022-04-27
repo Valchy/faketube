@@ -17,8 +17,8 @@ const Template = args => {
 	return <Search {...args} />;
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Default = Template.bind({});
+Default.args = {
 	buttonText: 'Search',
 	placeholder: 'Go for anything...'
 };
