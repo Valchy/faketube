@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import { VideoPlayerWrapper, YouTubeVideoWrapper } from './css';
+import { VideoPlayerWrapper, YouTubeVideoWrapper } from './styles';
 import YouTubeVideo from './YouTubeVideo';
 
 export default function VideoPlayer() {

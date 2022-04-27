@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SearchForm, SearchInput, SearchButton, SearchButtonImg, SearchButtonText } from './css';
+import { SearchForm, SearchInput, SearchButton, SearchButtonImg, SearchButtonText } from './styles';
 import searchImg from '../../imgs/searchLogo.svg';
 
 export default function Search({ handleSearch = () => {}, videoSearch = '', buttonText = '', placeholder = '' }) {

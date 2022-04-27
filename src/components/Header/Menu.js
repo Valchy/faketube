@@ -1,4 +1,4 @@
-import { ThemeWrapper, ThemeImg } from './css';
+import { ThemeWrapper, ThemeImg } from './styles';
 import nightImg from '../../imgs/night.png';
 import dayImg from '../../imgs/day.png';
 

@@ -9,129 +9,122 @@ import VideoInfo from './routes/VideoInfo';
 import WelcomeText from './routes/WelcomeText';
 import PageNotFound from './routes/PageNotFound';
 
-import * as FirestoreServiceAuth from './services/firestore/auth';
-import * as FirestoreServicePlaylist from './services/firestore/playlist';
-import * as FirestoreServicePlaylistVideos from './services/firestore/playlist/videos';
-import * as FirestoreServicePlaylistUsers from './services/firestore/playlist/collaborators';
-import { useEffect, useState } from 'react';
-import useQueryString from './hooks/useQueryString';
-
 function App() {
-	const [user, setUser] = useState('Valeri');
-	const [playlist, setPlaylist] = useState();
-	const [userId, setUserId] = useState();
-	const [error, setError] = useState();
-	const [videoId, setVideoId] = useState('');
-	const [playlistVideos, setPlaylistVideos] = useState([]);
+	// const [user, setUser] = useState('Valeri');
+	// const [playlist, setPlaylist] = useState();
+	// const [userId, setUserId] = useState();
+	// const [error, setError] = useState();
+	// const [videoId, setVideoId] = useState('');
+	// const [playlistVideos, setPlaylistVideos] = useState([]);
 
-	const [newUser, setNewUser] = useState('');
-	const [delVideo, setDelVideo] = useState('');
+	// const [newUser, setNewUser] = useState('');
+	// const [delVideo, setDelVideo] = useState('');
 
 	// Use a custom hook to subscribe to the grocery list ID provided as a URL query parameter
-	const [playlistId, setplaylistId] = useQueryString('playlist');
+	// const [playlistId, setplaylistId] = useQueryString('playlist');
 
-	// Use an effect to authenticate and load the grocery list from the database
-	useEffect(() => {
-		console.log('in auth');
+	// // Use an effect to authenticate and load the grocery list from the database
+	// useEffect(() => {
+	// 	console.log('in auth');
 
-		if (playlistId)
-			FirestoreServiceAuth.authenticateAnonymously()
-				.then(userCredential => {
-					setUserId(userCredential.user.uid);
-					if (playlistId) {
-						console.log('in get playlist');
+	// 	if (playlistId)
+	// 		FirestoreServiceAuth.authenticateAnonymously()
+	// 			.then(userCredential => {
+	// 				setUserId(userCredential.user.uid);
+	// 				if (playlistId) {
+	// 					console.log('in get playlist');
 
-						FirestoreServicePlaylist.getPlaylist(playlistId)
-							.then(playlist => {
-								if (playlist.exists()) {
-									setError(null);
-									console.log('found playlist');
-									setPlaylist(playlist.data());
-									console.log(playlist.data());
-								} else {
-									setError('playlist-not-found');
-									console.log('playlist-not-found');
-									setplaylistId();
-								}
-							})
-							.catch(() => {
-								setError('playlist-get-fail');
-								console.log('playlist-get-fail');
-							});
-					}
-				})
-				.catch(() => setError('anonymous-auth-failed'));
-	}, [playlistId, setplaylistId]);
+	// 					FirestoreServicePlaylist.getPlaylist(playlistId)
+	// 						.then(playlist => {
+	// 							if (playlist.exists()) {
+	// 								setError(null);
+	// 								console.log('found playlist');
+	// 								setPlaylist(playlist.data());
+	// 								console.log(playlist.data());
+	// 							} else {
+	// 								setError('playlist-not-found');
+	// 								console.log('playlist-not-found');
+	// 								setplaylistId();
+	// 							}
+	// 						})
+	// 						.catch(() => {
+	// 							setError('playlist-get-fail');
+	// 							console.log('playlist-get-fail');
+	// 						});
+	// 				}
+	// 			})
+	// 			.catch(() => setError('anonymous-auth-failed'));
+	// }, [playlistId, setplaylistId]);
 
-	useEffect(() => {
-		if (!playlistId) return;
+	// useEffect(() => {
+	// 	if (!playlistId) return;
 
-		const unsubscribe = FirestoreServicePlaylistVideos.streamPlaylistVideos(
-			playlistId,
-			querySnapshot => {
-				const updatedPlaylistVideos = querySnapshot.docs.map(docSnapshot => {
-					return { data: docSnapshot.data(), id: docSnapshot.id };
-				});
-				setPlaylistVideos(updatedPlaylistVideos);
-			},
-			error => {
-				console.log(error);
-				setError('grocery-list-item-get-fail');
-			}
-		);
-		return unsubscribe;
-	}, [playlistId, setPlaylistVideos]);
+	// 	const unsubscribe = FirestoreServicePlaylistVideos.streamPlaylistVideos(
+	// 		playlistId,
+	// 		querySnapshot => {
+	// 			const updatedPlaylistVideos = querySnapshot.docs.map(docSnapshot => {
+	// 				return { data: docSnapshot.data(), id: docSnapshot.id };
+	// 			});
+	// 			setPlaylistVideos(updatedPlaylistVideos);
+	// 		},
+	// 		error => {
+	// 			console.log(error);
+	// 			setError('grocery-list-item-get-fail');
+	// 		}
+	// 	);
+	// 	return unsubscribe;
+	// }, [playlistId, setPlaylistVideos]);
 
-	const createPlaylist = e => {
-		setError(null);
+	// const createPlaylist = e => {
+	// 	setError(null);
 
-		FirestoreServicePlaylist.createPlaylist(user, 'my title', 'some description')
-			.then(docRef => {
-				setplaylistId(docRef.id);
-				setUser(user);
-			})
-			.catch(reason => {
-				setError(reason.message);
-				console.log(reason.message);
-			});
-	};
+	// 	FirestoreServicePlaylist.createPlaylist(user, 'my title', 'some description')
+	// 		.then(docRef => {
+	// 			setplaylistId(docRef.id);
+	// 			setUser(user);
+	// 		})
+	// 		.catch(reason => {
+	// 			setError(reason.message);
+	// 			console.log(reason.message);
+	// 		});
+	// };
 
-	const addVideo = e => {
-		setError(null);
+	// const addVideo = e => {
+	// 	setError(null);
 
-		FirestoreServicePlaylistVideos.addPlaylistVideo(videoId, playlistId, userId)
-			.then(() => console.log('Added video', videoId, playlistId, userId))
-			.catch(reason => {
-				if (reason.message === 'duplicate-item-error') {
-					setError(reason.message);
-				} else {
-					setError(reason.message);
-				}
+	// 	FirestoreServicePlaylistVideos.addPlaylistVideo(videoId, playlistId, userId)
+	// 		.then(() => console.log('Added video', videoId, playlistId, userId))
+	// 		.catch(reason => {
+	// 			if (reason.message === 'duplicate-item-error') {
+	// 				setError(reason.message);
+	// 			} else {
+	// 				setError(reason.message);
+	// 			}
 
-				console.log(reason.message);
-			});
-	};
+	// 			console.log(reason.message);
+	// 		});
+	// };
 
-	const joinUser = () => {
-		FirestoreServicePlaylistUsers.addUpdatePlaylistCollaborator(playlistId, newUser, userId)
-			.then(() => console.log('user added'))
-			.catch(err => {
-				console.log(err);
-				setError('add-user-to-list-error');
-			});
-	};
+	// const joinUser = () => {
+	// 	FirestoreServicePlaylistUsers.addUpdatePlaylistCollaborator(playlistId, newUser, userId)
+	// 		.then(() => console.log('user added'))
+	// 		.catch(err => {
+	// 			console.log(err);
+	// 			setError('add-user-to-list-error');
+	// 		});
+	// };
 
-	const deleteVideo = () => {
-		FirestoreServicePlaylistVideos.deletePlaylistVideo(playlistId, delVideo)
-			.then(data => {
-				console.log(data);
-				console.log('video deleted');
-			})
-			.catch(() => {
-				console.log('delete video error');
-				setError('delete video error');
-			});
-	};
+	// const deleteVideo = () => {
+	// 	FirestoreServicePlaylistVideos.deletePlaylistVideo(playlistId, delVideo)
+	// 		.then(data => {
+	// 			console.log(data);
+	// 			console.log('video deleted');
+	// 		})
+	// 		.catch(() => {
+	// 			console.log('delete video error');
+	// 			setError('delete video error');
+	// 		});
+	// };
 
 	return (
 		// <div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gridGap: 10, width: 400 }}>

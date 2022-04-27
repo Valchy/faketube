@@ -1,4 +1,4 @@
-import { LogoWrapper, LogoImg, LogoText } from './css';
+import { LogoWrapper, LogoImg, LogoText } from './styles';
 import ytImg from '../../imgs/youtube.svg';
 
 export default function Logo({ setVideoId = () => {}, text = '', alt = '' }) {

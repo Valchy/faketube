@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import { Navbar } from './css';
+import { Navbar } from './styles';
 import Logo from './Logo';
 import Search from './Search';
 import Menu from './Menu';

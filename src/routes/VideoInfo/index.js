@@ -10,7 +10,7 @@ import {
 	YouTubeVideoData,
 	YouTubeVideoDescription,
 	YouTubeVideoGenre
-} from './css';
+} from './styles';
 
 export default function VideoPlayerRoute() {
 	const { videoId } = useContext(YouTubePlayerContext);

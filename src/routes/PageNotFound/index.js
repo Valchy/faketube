@@ -1,4 +1,4 @@
-import { Wrapper, Title, Text } from './css';
+import { Wrapper, Title, Text } from './styles';
 
 export default function PageNotFoundRoute() {
 	return (

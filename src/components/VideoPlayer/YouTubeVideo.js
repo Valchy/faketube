@@ -1,4 +1,4 @@
-import { YouTube } from './css';
+import { YouTube } from './styles';
 
 export default function YouTubeVideo({
 	videoId = '',

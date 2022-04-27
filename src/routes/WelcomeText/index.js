@@ -1,4 +1,4 @@
-import { Wrapper, Hello, Quote, GreetImg } from './css';
+import { Wrapper, Hello, Quote, GreetImg } from './styles';
 import greetImg from '../../imgs/family.png';
 
 export default function WelcomeText() {

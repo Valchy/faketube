@@ -13,7 +13,7 @@ import {
 	VideoInfoTitle,
 	VideoInfoData,
 	VideoInfoDescription
-} from './css';
+} from './styles';
 
 export default function SearchRoute() {
 	const { videoSearch, setVideoId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
