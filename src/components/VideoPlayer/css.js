@@ -20,6 +20,7 @@ export const YouTubeVideoWrapper = styled.div`
 	z-index: 8;
 	bottom: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
 	right: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
+	background-color: #000;
 
 	@media (max-width: 500px) {
 		bottom: 10px;

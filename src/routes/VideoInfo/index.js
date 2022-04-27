@@ -8,7 +8,8 @@ import {
 	YouTubeVideoInfo,
 	YouTubeVideoTitle,
 	YouTubeVideoData,
-	YouTubeVideoDescription
+	YouTubeVideoDescription,
+	YouTubeVideoGenre
 } from './css';
 
 export default function VideoPlayerRoute() {
@@ -31,6 +32,7 @@ export default function VideoPlayerRoute() {
 					<YouTubeVideoTitle>{data.data.title}</YouTubeVideoTitle>
 					<YouTubeVideoData>
 						{numberWithCommas(data.data.views)} views • {data.data.datePublished}
+						<YouTubeVideoGenre>Genre: {data.data.genre || 'Unknown'}</YouTubeVideoGenre>
 					</YouTubeVideoData>
 					<YouTubeVideoDescription>{data.data.description}</YouTubeVideoDescription>
 				</YouTubeVideoInfo>

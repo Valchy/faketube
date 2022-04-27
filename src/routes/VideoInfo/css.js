@@ -29,6 +29,8 @@ export const YouTubeVideoTitle = styled.h1`
 export const YouTubeVideoData = styled.span`
 	font-size: 12px;
 	margin: 10px 0 20px;
+	display: flex;
+	flex-direction: column;
 `;
 
 export const YouTubeVideoDescription = styled.p`
@@ -36,4 +38,8 @@ export const YouTubeVideoDescription = styled.p`
 	border-top: 1px solid ${({ theme }) => theme.border};
 	padding-top: 20px;
 	display: block;
+`;
+
+export const YouTubeVideoGenre = styled.span`
+	margin-top: 10px;
 `;
