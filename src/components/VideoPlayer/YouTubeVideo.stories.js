@@ -14,14 +14,10 @@ const Template = args => {
 	return <YouTubeVideo {...args} />;
 };
 
-export const BigScreen = Template.bind({});
-BigScreen.args = {
-	videoId: '36YnV9STBqc',
-	bigScreen: true
-};
-
-export const SmallScreen = Template.bind({});
-SmallScreen.args = {
-	videoId: '36YnV9STBqc',
-	bigScreen: false
+export const Default = Template.bind({});
+Default.args = {
+	videoId: 'bTecHenYWqA',
+	timeElapsed: 0,
+	isPlaying: true,
+	isMuted: false
 };

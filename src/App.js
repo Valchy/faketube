@@ -9,7 +9,10 @@ import VideoInfo from './routes/VideoInfo';
 import WelcomeText from './routes/WelcomeText';
 import PageNotFound from './routes/PageNotFound';
 
-import * as FirestoreService from './services/firestore';
+import * as FirestoreServiceAuth from './services/firestore/auth';
+import * as FirestoreServicePlaylist from './services/firestore/playlist';
+import * as FirestoreServicePlaylistVideos from './services/firestore/playlist/videos';
+import * as FirestoreServicePlaylistUsers from './services/firestore/playlist/collaborators';
 import { useEffect, useState } from 'react';
 import useQueryString from './hooks/useQueryString';
 
@@ -25,20 +28,20 @@ function App() {
 	const [delVideo, setDelVideo] = useState('');
 
 	// Use a custom hook to subscribe to the grocery list ID provided as a URL query parameter
-	const [playlistID, setPlaylistID] = useQueryString('playlist');
+	const [playlistId, setplaylistId] = useQueryString('playlist');
 
 	// Use an effect to authenticate and load the grocery list from the database
 	useEffect(() => {
 		console.log('in auth');
 
-		if (playlistID)
-			FirestoreService.authenticateAnonymously()
+		if (playlistId)
+			FirestoreServiceAuth.authenticateAnonymously()
 				.then(userCredential => {
 					setUserId(userCredential.user.uid);
-					if (playlistID) {
+					if (playlistId) {
 						console.log('in get playlist');
 
-						FirestoreService.getPlaylist(playlistID)
+						FirestoreServicePlaylist.getPlaylist(playlistId)
 							.then(playlist => {
 								if (playlist.exists()) {
 									setError(null);
@@ -48,7 +51,7 @@ function App() {
 								} else {
 									setError('playlist-not-found');
 									console.log('playlist-not-found');
-									setPlaylistID();
+									setplaylistId();
 								}
 							})
 							.catch(() => {
@@ -58,13 +61,13 @@ function App() {
 					}
 				})
 				.catch(() => setError('anonymous-auth-failed'));
-	}, [playlistID, setPlaylistID]);
+	}, [playlistId, setplaylistId]);
 
 	useEffect(() => {
-		if (!playlistID) return;
+		if (!playlistId) return;
 
-		const unsubscribe = FirestoreService.streamPlaylistVideos(
-			playlistID,
+		const unsubscribe = FirestoreServicePlaylistVideos.streamPlaylistVideos(
+			playlistId,
 			querySnapshot => {
 				const updatedPlaylistVideos = querySnapshot.docs.map(docSnapshot => {
 					return { data: docSnapshot.data(), id: docSnapshot.id };
@@ -77,14 +80,14 @@ function App() {
 			}
 		);
 		return unsubscribe;
-	}, [playlistID, setPlaylistVideos]);
+	}, [playlistId, setPlaylistVideos]);
 
 	const createPlaylist = e => {
 		setError(null);
 
-		FirestoreService.createPlaylist(user, userId)
+		FirestoreServicePlaylist.createPlaylist(user, 'my title', 'some description')
 			.then(docRef => {
-				setPlaylistID(docRef.id);
+				setplaylistId(docRef.id);
 				setUser(user);
 			})
 			.catch(reason => {
@@ -96,8 +99,8 @@ function App() {
 	const addVideo = e => {
 		setError(null);
 
-		FirestoreService.addPlaylistVideo(videoId, playlistID, userId)
-			.then(() => console.log('Added video', videoId, playlistID, userId))
+		FirestoreServicePlaylistVideos.addPlaylistVideo(videoId, playlistId, userId)
+			.then(() => console.log('Added video', videoId, playlistId, userId))
 			.catch(reason => {
 				if (reason.message === 'duplicate-item-error') {
 					setError(reason.message);
@@ -110,13 +113,16 @@ function App() {
 	};
 
 	const joinUser = () => {
-		FirestoreService.addUserToPlaylist(newUser, playlistID, 'pop')
+		FirestoreServicePlaylistUsers.addUpdatePlaylistCollaborator(playlistId, newUser, userId)
 			.then(() => console.log('user added'))
-			.catch(() => setError('add-user-to-list-error'));
+			.catch(err => {
+				console.log(err);
+				setError('add-user-to-list-error');
+			});
 	};
 
 	const deleteVideo = () => {
-		FirestoreService.deletePlaylistVideo(playlistID, delVideo)
+		FirestoreServicePlaylistVideos.deletePlaylistVideo(playlistId, delVideo)
 			.then(data => {
 				console.log(data);
 				console.log('video deleted');
@@ -128,51 +134,51 @@ function App() {
 	};
 
 	return (
-		<div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gridGap: 10, width: 400 }}>
-			<button onClick={createPlaylist}>Create playlist</button>
-			<span>ID: {playlistID}</span>
+		// <div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gridGap: 10, width: 400 }}>
+		// 	<button onClick={createPlaylist}>Create playlist</button>
+		// 	<span>ID: {playlistId}</span>
 
-			<button onClick={addVideo}>Add Video</button>
-			<input value={videoId} onChange={({ target }) => setVideoId(target.value)} />
+		// 	<button onClick={addVideo}>Add Video</button>
+		// 	<input value={videoId} onChange={({ target }) => setVideoId(target.value)} />
 
-			<button onClick={joinUser}>Add user</button>
-			<input value={newUser} onChange={({ target }) => setNewUser(target.value)} />
+		// 	<button onClick={joinUser}>Add user</button>
+		// 	<input value={newUser} onChange={({ target }) => setNewUser(target.value)} />
 
-			<button onClick={deleteVideo}>Delete Video</button>
-			<input value={delVideo} onChange={({ target }) => setDelVideo(target.value)} />
+		// 	<button onClick={deleteVideo}>Delete Video</button>
+		// 	<input value={delVideo} onChange={({ target }) => setDelVideo(target.value)} />
 
-			<div>
-				<h2>saved</h2>
-				<p>36YnV9STBqc</p>
-				<p>bTecHenYWqA</p>
-			</div>
-			<div>
-				{playlistVideos.map(({ data, id }) => {
-					// console.log(video);
+		// 	<div>
+		// 		<h2>saved</h2>
+		// 		<p>36YnV9STBqc</p>
+		// 		<p>bTecHenYWqA</p>
+		// 	</div>
+		// 	<div>
+		// 		{playlistVideos.map(({ data, id }) => {
+		// 			// console.log(video);
 
-					return (
-						<p key={id}>
-							{data.name} - {id}
-						</p>
-					);
-				})}
-			</div>
+		// 			return (
+		// 				<p key={id}>
+		// 					{data.name} - {id}
+		// 				</p>
+		// 			);
+		// 		})}
+		// 	</div>
 
-			<span>{error}</span>
-		</div>
-		// <YouTubePlayerProvider>
-		// 	<ThemeProvider>
-		// 		<GlobalStyle />
-		// 		<Header />
-		// 		<VideoPlayer />
-		// 		<Routes>
-		// 			<Route path="/" element={<WelcomeText />} />
-		// 			<Route path="/search" element={<SearchResults />} />
-		// 			<Route path="/video" element={<VideoInfo />} />
-		// 			<Route path="/*" element={<PageNotFound />} />
-		// 		</Routes>
-		// 	</ThemeProvider>
-		// </YouTubePlayerProvider>
+		// 	<span>{error}</span>
+		// </div>
+		<YouTubePlayerProvider>
+			<ThemeProvider>
+				<GlobalStyle />
+				<Header />
+				<VideoPlayer />
+				<Routes>
+					<Route path="/" element={<WelcomeText />} />
+					<Route path="/search" element={<SearchResults />} />
+					<Route path="/video" element={<VideoInfo />} />
+					<Route path="/*" element={<PageNotFound />} />
+				</Routes>
+			</ThemeProvider>
+		</YouTubePlayerProvider>
 	);
 }
 

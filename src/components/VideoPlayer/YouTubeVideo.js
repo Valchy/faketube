@@ -1,29 +1,31 @@
-import { YouTube, YouTubeSmall } from './css';
+import { YouTube } from './css';
 
-export default function YouTubeVideo({ videoId = '', bigScreen = true, checkElapsedTime = () => {} }) {
-	return bigScreen ? (
+export default function YouTubeVideo({
+	videoId = '',
+	timeElapsed = 0,
+	isPlaying = true,
+	isMuted = false,
+	endHandler = () => {},
+	pauseHandler = () => {},
+	playHandler = () => {},
+	changeHandler = () => {}
+}) {
+	return (
 		<YouTube
 			videoId={videoId}
-			onStateChange={e => checkElapsedTime(e)}
+			onStateChange={changeHandler}
+			onEnd={endHandler}
+			onPause={pauseHandler}
+			onPlay={playHandler}
 			title="YouTube Video"
 			allowFullScreen
 			opts={{
 				playerVars: {
-					autoplay: 1,
-					start: 0
-				}
-			}}
-		/>
-	) : (
-		<YouTubeSmall
-			videoId={videoId}
-			onStateChange={e => checkElapsedTime(e)}
-			title="YouTube Video"
-			allowFullScreen
-			opts={{
-				playerVars: {
-					autoplay: 1,
-					start: 0
+					showinfo: 0,
+					modestbranding: 1,
+					start: timeElapsed,
+					autoplay: isPlaying,
+					mute: isMuted
 				}
 			}}
 		/>

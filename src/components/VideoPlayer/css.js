@@ -41,8 +41,3 @@ export const YouTube = styled(ReactYouTube)`
 		width: calc(100vw - 20px);
 	}
 `;
-
-export const YouTubeSmall = styled(ReactYouTube)`
-	width: 200px;
-	height: 112.5px;
-`;
