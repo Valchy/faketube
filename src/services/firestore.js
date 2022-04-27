@@ -10,6 +10,7 @@ import {
 	getDocs,
 	addDoc,
 	updateDoc,
+	deleteDoc,
 	doc,
 	serverTimestamp,
 	arrayUnion
@@ -23,46 +24,46 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const playlistsCollection = 'playlists';
+const dbDocument = 'playlists';
 
+// works
 export const authenticateAnonymously = () => {
 	return signInAnonymously(getAuth(app));
 };
 
+// works
 export const createPlaylist = (userName, userId) => {
-	console.log(userName, userId);
-	const playlistColRef = collection(db, playlistsCollection);
+	let a = [db, dbDocument];
+	const playlistColRef = collection(...a);
 	return addDoc(playlistColRef, {
 		created: serverTimestamp(),
-		createdBy: userId,
+		createdBy: userName,
 		users: [
 			{
-				userId: userId,
+				userId: 'awesome',
 				name: userName
 			}
 		]
 	});
 };
 
+// works
 export const getPlaylist = playlistID => {
-	const playlistDocRef = doc(db, playlistsCollection, playlistID);
+	const playlistDocRef = doc(db, dbDocument, playlistID);
 	return getDoc(playlistDocRef);
 };
 
-export const getPlaylistItems = playlistID => {
-	const videosColRef = collection(db, playlistsCollection, playlistID, 'items');
-	return getDocs(videosColRef);
-};
-
+// works
 export const streamPlaylistVideos = (playlistID, snapshot, error) => {
-	const videosColRef = collection(db, playlistsCollection, playlistID, 'items');
+	const videosColRef = collection(db, dbDocument, playlistID, 'videos');
 	const itemsQuery = query(videosColRef, orderBy('created'));
 	return onSnapshot(itemsQuery, snapshot, error);
 };
 
+// works
 export const addUserToPlaylist = (userName, playlistID, userId) => {
-	const groceryDocRef = doc(db, playlistsCollection, playlistID);
-	return updateDoc(groceryDocRef, {
+	const playlistDocRef = doc(db, dbDocument, playlistID);
+	return updateDoc(playlistDocRef, {
 		users: arrayUnion({
 			userId: userId,
 			name: userName
@@ -70,13 +71,20 @@ export const addUserToPlaylist = (userName, playlistID, userId) => {
 	});
 };
 
+// only used in add playlist video
+const getPlaylistItems = playlistID => {
+	const videosColRef = collection(db, dbDocument, playlistID, 'videos');
+	return getDocs(videosColRef);
+};
+
+// works
 export const addPlaylistVideo = (item, playlistID, userId) => {
 	return getPlaylistItems(playlistID)
 		.then(querySnapshot => querySnapshot.docs)
 		.then(playlistVideos => playlistVideos.find(playlistVideo => playlistVideo.data().name.toLowerCase() === item.toLowerCase()))
 		.then(matchingItem => {
 			if (!matchingItem) {
-				const videosColRef = collection(db, playlistsCollection, playlistID, 'items');
+				const videosColRef = collection(db, dbDocument, playlistID, 'videos');
 				return addDoc(videosColRef, {
 					name: item,
 					created: serverTimestamp(),
@@ -85,4 +93,9 @@ export const addPlaylistVideo = (item, playlistID, userId) => {
 			}
 			throw new Error('duplicate-item-error');
 		});
+};
+
+export const deletePlaylistVideo = (playlistID, videoId) => {
+	const videosColRef = doc(db, dbDocument, playlistID, 'videos', videoId);
+	return deleteDoc(videosColRef);
 };
