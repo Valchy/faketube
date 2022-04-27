@@ -8,7 +8,6 @@
 		"@firebase/auth": "^0.19.12",
 		"@firebase/firestore": "^3.4.8",
 		"axios": "^0.26.1",
-		"logrocket": "^2.2.1",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
 		"react-is": "^18.0.0",
