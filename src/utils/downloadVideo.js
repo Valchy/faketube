@@ -1,4 +1,5 @@
-export default function downloadVideo(videoId, onError = () => {}) {
+export default function downloadVideo(e, videoId, onError = () => {}) {
+	e.preventDefault(); // Bug fix
 	if (!videoId) return onError('No video ID was provided');
 
 	// 3rd party video converter
