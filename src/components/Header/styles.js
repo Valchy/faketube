@@ -106,7 +106,12 @@ export const ThemeWrapper = styled.div`
 	margin-left: 20px;
 `;
 
-export const ThemeImg = styled.img`
+export const MenuImg = styled.img`
 	width: 32px;
 	height: 32px;
+	cursor: pointer;
+`;
+
+export const PlaylistLink = styled(Link)`
+	margin-left: 25px;
 `;
