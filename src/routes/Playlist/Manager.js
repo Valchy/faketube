@@ -11,7 +11,7 @@ export default function Manager() {
 			<Title>Playlist Manager</Title>
 			<ButtonWrapper>
 				<Button to="/playlist/create">New playlist</Button>
-				{playlistId && <Button to={`/playlist/${playlistId}}`}>Edit playlist</Button>}
+				{playlistId && <Button to={`/playlist/${playlistId}`}>Edit playlist</Button>}
 			</ButtonWrapper>
 			{playlistId && (
 				<>

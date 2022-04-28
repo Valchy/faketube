@@ -13,7 +13,7 @@ export const Title = styled.h2`
 	font-size: 24px;
 	font-weight: 700;
 	text-align: center;
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 `;
 
 export const Description = styled.p`
@@ -41,19 +41,38 @@ export const Button = styled(Link)`
 export const CreatePlaylistWrapper = styled.form`
 	display: flex;
 	flex-direction: column;
-	max-width: 800px;
+	max-width: 840px;
 	width: 100%;
+	padding: 0 20px;
 `;
 
 export const FormLabel = styled.label`
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 25px;
 `;
 
 export const Label = styled.span`
-	font-size: 22px;
+	font-size: 18px;
+	margin-bottom: 11px;
+	font-weight: 300;
+	margin-left: 15px;
 `;
 
 export const Input = styled.input`
 	width: 100%;
+	border: none;
+	resize: none;
+	padding: 20px;
+	border-radius: 3px;
+	background-color: ${({ theme }) => theme.primary};
+	color: ${({ theme }) => theme.secondary};
+`;
+
+export const SubmitButton = styled.button`
+	align-self: center;
+	font-size: 16px;
+	padding: 10px 15px;
+	color: #222;
+	cursor: pointer;
 `;
