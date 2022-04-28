@@ -10,7 +10,6 @@ export function YouTubePlayerProvider({ children }) {
 	const { pathname, search } = useLocation();
 	const q = new URLSearchParams(search).get('q');
 	const w = new URLSearchParams(search).get('w');
-	const playlist = new URLSearchParams(search).get('playlist');
 
 	// Video search state
 	const [videoSearch, setVideoSearch] = useState(q || '');
@@ -23,7 +22,7 @@ export function YouTubePlayerProvider({ children }) {
 	const [isMuted, toggleIsMuted] = useToggle(false);
 
 	// Playlist state
-	const [playlistId, setPlaylistId] = useState(playlist || window.localStorage?.playlistId || '');
+	const [playlistId, setPlaylistId] = useState(window.localStorage?.playlistId || '');
 	const [playlistVideos, setPlaylistVideos] = useState([]);
 	const [playlistUpdates, setPlaylistUpdates] = useState([]);
 	const [playlistCollaborators, setPlaylistCollaborators] = useState([]);

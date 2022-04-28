@@ -3,11 +3,20 @@ import { useParams } from 'react-router-dom';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { getPlaylist } from '../../services/firestore/playlist';
 import useVideoStream from '../../hooks/useVideoStream';
-import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideo } from './styles';
+import {
+	Title,
+	PlaylistDescription,
+	PlaylistInfo,
+	PlaylistVideoWrapper,
+	PlaylistVideos,
+	PlaylistVideo,
+	VideoThumbnail,
+	VideoInfo
+} from './styles';
 
 export default function EditPlaylist() {
 	const { playlistIdFromURL } = useParams();
-	const { playlistVideos, setPlaylistVideos } = useContext(YouTubePlayerContext);
+	const { setPlaylistId, playlistVideos, setPlaylistVideos } = useContext(YouTubePlayerContext);
 	const [playlistAuthor, setPlaylistAuthor] = useState('');
 	const [playlistTitle, setPlaylistTitle] = useState('');
 	const [playlistDescription, setPlaylistDescription] = useState('');
@@ -21,6 +30,7 @@ export default function EditPlaylist() {
 		getPlaylist(playlistIdFromURL)
 			.then(playlist => {
 				if (playlist.exists()) {
+					setPlaylistId(playlistIdFromURL);
 					const { author, title, description, dateCreated } = playlist.data();
 					setPlaylistAuthor(author);
 					setPlaylistTitle(title);
@@ -33,7 +43,7 @@ export default function EditPlaylist() {
 			.catch(() => {
 				console.log('playlist-get-fail');
 			});
-	}, [playlistIdFromURL]);
+	}, [playlistIdFromURL, setPlaylistId]);
 
 	return (
 		<>
@@ -43,9 +53,14 @@ export default function EditPlaylist() {
 			<PlaylistDescription>{playlistDescription || 'loading...'}</PlaylistDescription>
 
 			<PlaylistVideoWrapper>
-				{playlistVideos.map(() => (
-					<PlaylistVideo>hello</PlaylistVideo>
-				))}
+				<PlaylistVideos>
+					{playlistVideos.reverse().map(({ data, id }) => (
+						<PlaylistVideo key={id}>
+							<VideoThumbnail />
+							<VideoInfo></VideoInfo>
+						</PlaylistVideo>
+					))}
+				</PlaylistVideos>
 			</PlaylistVideoWrapper>
 		</>
 	);

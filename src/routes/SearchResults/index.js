@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import useSWR from 'swr';
 import fetcher from '../../utils/fetcher';
-import nFormatter from '../../utils/nFormatter';
+import numberWithLetters from '../../utils/numberWithLetters';
 import { addPlaylistVideo } from '../../services/firestore/playlist/videos';
 import downloadVideo from '../../utils/downloadVideo';
 import useFnAgainAfter from '../../hooks/useFnAgainAfter';
@@ -46,7 +46,7 @@ export default function SearchRoute() {
 							<VideoInfo>
 								<VideoInfoTitle>{title}</VideoInfoTitle>
 								<VideoInfoData>
-									{nFormatter(views)} • {publishedAt}
+									{numberWithLetters(views)} • {publishedAt}
 								</VideoInfoData>
 
 								<VideoInfoDescription>{description || 'No description was provided'}</VideoInfoDescription>

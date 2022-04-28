@@ -89,11 +89,45 @@ export const PlaylistInfo = styled(PlaylistDescription)`
 `;
 
 export const PlaylistVideoWrapper = styled.div`
-	display: flex-wrap;
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+`;
+
+export const PlaylistVideos = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	width: 80vw;
+	max-width: 1800px;
+	grid-column-gap: 40px;
+	grid-row-gap: 60px;
+
+	@media (max-width: 1545px) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	@media (max-width: 1000px) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media (max-width: 700px) {
+		grid-template-columns: 1fr;
+		width: calc(100vw - 20px);
+	}
 `;
 
 export const PlaylistVideo = styled.div`
-	width: 400px;
 	display: flex;
 	flex-direction: column;
+	aspect-ratio: 16 / 9;
+`;
+
+export const VideoThumbnail = styled.img`
+	width: 100%;
+	background-color: #000;
+	aspect-ratio: 16 / 9;
+`;
+
+export const VideoInfo = styled.span`
+	font-size: 16px;
 `;
