@@ -76,3 +76,24 @@ export const SubmitButton = styled.button`
 	color: #222;
 	cursor: pointer;
 `;
+
+export const PlaylistDescription = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+	margin-top: 25px;
+`;
+
+export const PlaylistInfo = styled(PlaylistDescription)`
+	margin-top: 0;
+`;
+
+export const PlaylistVideoWrapper = styled.div`
+	display: flex-wrap;
+`;
+
+export const PlaylistVideo = styled.div`
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+`;

@@ -4,31 +4,35 @@ import { query, orderBy, onSnapshot, collection, getDocs, addDoc, deleteDoc, doc
 
 // Add video to playlist based on playlist ID
 export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, timeElapsed, isPlaying, isMuted) => {
-	// Error handling
-	doErrorHandling(playlistId, videoId);
+	try {
+		// Error handling
+		doErrorHandling(playlistId, videoId);
 
-	// Getting playlist videos
-	const videosColRef = collection(db, dbDocPlaylists, playlistId, dbDocVideos);
-	const videos = await getDocs(videosColRef);
-
-	// Searching if video already exists in the playlist with the given video ID
-	const matchingVideo = videos.docs.find(video => video.data().viedoId === videoId);
-
-	// Add video to playlist if it does not exist
-	if (!matchingVideo) {
+		// Getting playlist videos
 		const videosColRef = collection(db, dbDocPlaylists, playlistId, dbDocVideos);
-		return addDoc(videosColRef, {
-			author: collaboratorName || 'Unknown',
-			dateCreated: serverTimestamp(),
-			videoId: videoId,
-			timeElapsed: timeElapsed || 0,
-			isPlaying: isPlaying || true,
-			isMuted: isMuted || false
-		});
-	}
+		const videos = await getDocs(videosColRef);
 
-	// Otherwise throw video already in playlist error
-	throw new Error('The video is already in the playlist');
+		// Searching if video already exists in the playlist with the given video ID
+		const matchingVideo = videos.docs.find(video => video.data().viedoId === videoId);
+
+		// Add video to playlist if it does not exist
+		if (!matchingVideo) {
+			const videosColRef = collection(db, dbDocPlaylists, playlistId, dbDocVideos);
+			return addDoc(videosColRef, {
+				author: collaboratorName || 'Unknown',
+				dateCreated: serverTimestamp(),
+				videoId: videoId,
+				timeElapsed: timeElapsed || 0,
+				isPlaying: isPlaying || true,
+				isMuted: isMuted || false
+			});
+		}
+
+		// Otherwise throw video already in playlist error
+		throw new Error('The video is already in the playlist');
+	} catch (err) {
+		console.log(err.message);
+	}
 };
 
 // Live stream playlist videos with websockets under the hood

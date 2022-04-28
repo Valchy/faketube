@@ -2,7 +2,10 @@ import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import useSWR from 'swr';
 import fetcher from '../../utils/fetcher';
+import nFormatter from '../../utils/nFormatter';
+import { addPlaylistVideo } from '../../services/firestore/playlist/videos';
 import downloadVideo from '../../utils/downloadVideo';
+import useFnAgainAfter from '../../hooks/useFnAgainAfter';
 import downloadImg from '../../imgs/download.png';
 import addToPlaylistImg from '../../imgs/add-to-playlist.png';
 import {
@@ -21,23 +24,20 @@ import {
 } from './styles';
 
 export default function SearchRoute() {
-	const { videoSearch, setVideoId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
+	const { playlistId, videoSearch, setVideoId } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
+	const addRemovePlaylistVideo = useFnAgainAfter(1500);
+	const startDownload = useFnAgainAfter(5000);
 
 	// Error handling
 	if (error || !data) return;
-
-	const videoClickHandler = vidId => {
-		setShowVideoOnSearch(false);
-		setVideoId(vidId);
-	};
 
 	return (
 		<SearchResultsWrapper>
 			{data.data && data.data.status !== false && (
 				<SearchResults>
 					{data.data.map(({ id: { videoId }, title, description, views, snippet: { duration, publishedAt, thumbnails } }) => (
-						<VideoResultWrapper key={videoId} to={`/video?w=${videoId}`} onClick={() => videoClickHandler(videoId)}>
+						<VideoResultWrapper key={videoId} to={`/video?w=${videoId}`} onClick={() => setVideoId(videoId)}>
 							<VideoThumbnailWrapper>
 								<VideoThumbnail src={thumbnails.default.url} />
 								<VideoDuration>{duration}</VideoDuration>
@@ -51,9 +51,16 @@ export default function SearchRoute() {
 
 								<VideoInfoDescription>{description || 'No description was provided'}</VideoInfoDescription>
 								<VideoInfoOptions>
-									<OptionImg src={addToPlaylistImg} title="Add to playlist" alt="Add to playlist" />
+									{playlistId && (
+										<OptionImg
+											onClick={e => addRemovePlaylistVideo(e, addPlaylistVideo, playlistId, videoId)}
+											src={addToPlaylistImg}
+											title="Add to playlist"
+											alt="Add to playlist"
+										/>
+									)}
 									<OptionImg
-										onClick={e => downloadVideo(e, videoId)}
+										onClick={e => startDownload(e, downloadVideo, videoId)}
 										src={downloadImg}
 										title="Download video"
 										alt="Download video"
@@ -66,17 +73,4 @@ export default function SearchRoute() {
 			)}
 		</SearchResultsWrapper>
 	);
-}
-
-function nFormatter(num) {
-	if (num >= 1000000000) {
-		return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
-	}
-	if (num >= 1000000) {
-		return (num / 1000000).toFixed(0).replace(/\.0$/, '') + 'M';
-	}
-	if (num >= 1000) {
-		return (num / 1000).toFixed(0).replace(/\.0$/, '') + 'K';
-	}
-	return num;
 }

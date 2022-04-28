@@ -1,8 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import useSWR from 'swr';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
+import { addPlaylistVideo } from '../../services/firestore/playlist/videos';
 import fetcher from '../../utils/fetcher';
+import numberWithCommas from '../../utils/numberWithCommas';
 import downloadVideo from '../../utils/downloadVideo';
+import useFnAgainAfter from '../../hooks/useFnAgainAfter';
 import downloadImg from '../../imgs/download.png';
 import addToPlaylistImg from '../../imgs/add-to-playlist.png';
 import {
@@ -21,8 +24,16 @@ import {
 } from './styles';
 
 export default function VideoPlayerRoute() {
-	const { videoId } = useContext(YouTubePlayerContext);
+	const { videoId, playlistId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
+	const addRemovePlaylistVideo = useFnAgainAfter(1500);
+	const startDownload = useFnAgainAfter(5000);
+
+	// Make video go to corner on page leave
+	useEffect(() => {
+		setShowVideoOnSearch(false);
+		return () => setShowVideoOnSearch(true);
+	}, [setShowVideoOnSearch]);
 
 	// Error handling
 	if (error || !data) return;
@@ -44,9 +55,14 @@ export default function VideoPlayerRoute() {
 							</Genre>
 
 							<Options>
-								<OptionImg src={addToPlaylistImg} title="Add to playlist" alt="Add to playlist" />
 								<OptionImg
-									onClick={e => downloadVideo(e, videoId)}
+									onClick={e => addRemovePlaylistVideo(e, addPlaylistVideo, playlistId, videoId)}
+									src={addToPlaylistImg}
+									title="Add to playlist"
+									alt="Add to playlist"
+								/>
+								<OptionImg
+									onClick={e => startDownload(e, downloadVideo, videoId)}
 									src={downloadImg}
 									title="Download video"
 									alt="Download video"
@@ -62,8 +78,4 @@ export default function VideoPlayerRoute() {
 			</Wrapper>
 		</VideoPlayerWrapper>
 	);
-}
-
-function numberWithCommas(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
