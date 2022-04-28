@@ -10,7 +10,7 @@ export default function useFnAgainAfter(ms = 1000) {
 		e.preventDefault();
 		setClicked(true);
 		setTimeout(() => setClicked(false), ms);
-		fn(args);
+		fn(...args);
 	};
 
 	return callFn;

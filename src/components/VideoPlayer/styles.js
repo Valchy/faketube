@@ -16,11 +16,12 @@ export const VideoPlayerWrapper = styled.div`
 export const YouTubeVideoWrapper = styled.div`
 	width: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '400px' : '800px')};
 	position: ${({ showVideoOnSearch }) => (showVideoOnSearch ? 'fixed' : 'relative')};
-	max-width: 95vw;
-	z-index: 8;
 	bottom: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
 	right: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '25px' : 'auto')};
+	max-width: 95vw;
+	z-index: 8;
 	background-color: #000;
+	box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
 
 	@media (max-width: 500px) {
 		bottom: 10px;
@@ -40,4 +41,12 @@ export const YouTube = styled(ReactYouTube)`
 	@media (max-width: 500px) {
 		width: calc(100vw - 20px);
 	}
+`;
+
+export const ShowVideoOnSearchOptions = styled.span`
+	color: ${({ theme }) => theme.secondary};
+	position: absolute;
+	top: -30px;
+	right: 0;
+	cursor: pointer;
 `;

@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import { VideoPlayerWrapper, YouTubeVideoWrapper } from './styles';
+import { VideoPlayerWrapper, YouTubeVideoWrapper, ShowVideoOnSearchOptions } from './styles';
 import YouTubeVideo from './YouTubeVideo';
 
 export default function VideoPlayer() {
-	const { videoId, setVideoId, showVideoOnSearch, pathname } = useContext(YouTubePlayerContext);
+	const { videoId, setVideoId, showVideoOnSearch, setShowVideoOnSearch, pathname } = useContext(YouTubePlayerContext);
 
 	// Error handling
 	if ((!showVideoOnSearch && pathname !== '/video') || !videoId) return;
@@ -33,6 +33,9 @@ export default function VideoPlayer() {
 	return (
 		<VideoPlayerWrapper showVideoOnSearch={showVideoOnSearch}>
 			<YouTubeVideoWrapper showVideoOnSearch={showVideoOnSearch}>
+				{showVideoOnSearch && (
+					<ShowVideoOnSearchOptions onClick={() => setShowVideoOnSearch(false)}>Close player</ShowVideoOnSearchOptions>
+				)}
 				<YouTubeVideo
 					videoId={videoId}
 					playHanlder={playHanlder}
