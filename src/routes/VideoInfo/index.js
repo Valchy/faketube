@@ -44,8 +44,13 @@ export default function VideoPlayerRoute() {
 							</Genre>
 
 							<Options>
-								<OptionImg src={addToPlaylistImg} />
-								<OptionImg onClick={() => downloadVideo(videoId)} src={downloadImg} />
+								<OptionImg src={addToPlaylistImg} title="Add to playlist" alt="Add to playlist" />
+								<OptionImg
+									onClick={() => downloadVideo(videoId)}
+									src={downloadImg}
+									title="Download video"
+									alt="Download video"
+								/>
 							</Options>
 						</GenreOptionsWrapper>
 

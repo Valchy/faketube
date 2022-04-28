@@ -31,7 +31,7 @@ export function YouTubePlayerProvider({ children }) {
 	// General state
 	const [firebaseError, setFirebaseError] = useState('');
 	const [darkMode, toggleDarkMode] = useToggle(window.localStorage?.darkMode === 'false' ? false : true);
-	const [showVideoOnSearch, toggleShowVideoOnSearch] = useToggle(false);
+	const [showVideoOnSearch, setShowVideoOnSearch] = useState(false);
 	const [collaboratorName, setCollaboratorName] = useState('');
 	const [authId, setAuthId] = useState('');
 
@@ -48,7 +48,7 @@ export function YouTubePlayerProvider({ children }) {
 				darkMode,
 				toggleDarkMode,
 				showVideoOnSearch,
-				toggleShowVideoOnSearch,
+				setShowVideoOnSearch,
 				pathname,
 				videoSearchResults,
 				setVideoSearchResults,

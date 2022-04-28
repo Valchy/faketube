@@ -8,8 +8,8 @@ export default function Search({ handleSearch = () => {}, videoSearch = '', butt
 	return (
 		<SearchForm onSubmit={e => handleSearch(e, search)}>
 			<SearchInput value={search} onChange={({ target }) => setSearch(target.value)} placeholder={placeholder} />
-			<SearchButton>
-				<SearchButtonImg src={searchImg} />
+			<SearchButton title="Search for videos">
+				<SearchButtonImg src={searchImg} alt="Search videos" />
 				<SearchButtonText>{buttonText}</SearchButtonText>
 			</SearchButton>
 		</SearchForm>

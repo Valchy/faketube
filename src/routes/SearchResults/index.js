@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import axios from 'axios';
 import useSWR from 'swr';
+import fetcher from '../../utils/fetcher';
+import downloadVideo from '../../utils/downloadVideo';
+import downloadImg from '../../imgs/download.png';
+import addToPlaylistImg from '../../imgs/add-to-playlist.png';
 import {
 	SearchResultsWrapper,
 	SearchResults,
@@ -12,24 +15,20 @@ import {
 	VideoInfo,
 	VideoInfoTitle,
 	VideoInfoData,
-	VideoInfoDescription
+	VideoInfoDescription,
+	VideoInfoOptions,
+	OptionImg
 } from './styles';
 
 export default function SearchRoute() {
-	const { videoSearch, setVideoId, toggleShowVideoOnSearch } = useContext(YouTubePlayerContext);
-	const fetcher = url =>
-		axios.get(url, {
-			headers: {
-				'Access-Control-Allow-Origin': true
-			}
-		});
-
+	const { videoSearch, setVideoId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
 
+	// Error handling
 	if (error || !data) return;
 
 	const videoClickHandler = vidId => {
-		toggleShowVideoOnSearch(false);
+		setShowVideoOnSearch(false);
 		setVideoId(vidId);
 	};
 
@@ -43,12 +42,23 @@ export default function SearchRoute() {
 								<VideoThumbnail src={thumbnails.default.url} />
 								<VideoDuration>{duration}</VideoDuration>
 							</VideoThumbnailWrapper>
+
 							<VideoInfo>
 								<VideoInfoTitle>{title}</VideoInfoTitle>
 								<VideoInfoData>
 									{nFormatter(views)} • {publishedAt}
 								</VideoInfoData>
+
 								<VideoInfoDescription>{description || 'No description was provided'}</VideoInfoDescription>
+								<VideoInfoOptions>
+									<OptionImg src={addToPlaylistImg} title="Add to playlist" alt="Add to playlist" />
+									<OptionImg
+										onClick={() => downloadVideo(videoId)}
+										src={downloadImg}
+										title="Download video"
+										alt="Download video"
+									/>
+								</VideoInfoOptions>
 							</VideoInfo>
 						</VideoResultWrapper>
 					))}

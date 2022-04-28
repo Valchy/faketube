@@ -8,7 +8,7 @@ import Menu from './Menu';
 
 export default function Header() {
 	const navigate = useNavigate();
-	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, toggleShowVideoOnSearch, toggleDarkMode } =
+	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, setShowVideoOnSearch, toggleDarkMode } =
 		useContext(YouTubePlayerContext);
 
 	// On search handler
@@ -17,7 +17,7 @@ export default function Header() {
 		if (!search) return navigate('/');
 
 		// Make youtube video continue to play in corner
-		if (videoId) toggleShowVideoOnSearch(true);
+		if (videoId) setShowVideoOnSearch(true);
 
 		// Set state and navigate to url
 		setVideoSearch(search);

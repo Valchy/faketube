@@ -102,3 +102,16 @@ export const VideoInfoDescription = styled.p`
 	color: ${({ theme }) => theme.secondary};
 	margin-top: 30px;
 `;
+
+export const VideoInfoOptions = styled.div`
+	display: flex;
+	align-items: center;
+	margin-top: 15px;
+`;
+
+export const OptionImg = styled.img`
+	cursor: pointer;
+	width: 26px;
+	height: 26px;
+	margin-right: 15px;
+`;
