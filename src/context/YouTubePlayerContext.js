@@ -23,7 +23,7 @@ export function YouTubePlayerProvider({ children }) {
 	const [isMuted, toggleIsMuted] = useToggle(false);
 
 	// Playlist state
-	const [playlistId, setPlaylistId] = useState(playlist || '');
+	const [playlistId, setPlaylistId] = useState(playlist || window.localStorage?.playlistId || '');
 	const [playlistVideos, setPlaylistVideos] = useState([]);
 	const [playlistUpdates, setPlaylistUpdates] = useState([]);
 	const [playlistCollaborators, setPlaylistCollaborators] = useState([]);
@@ -35,8 +35,9 @@ export function YouTubePlayerProvider({ children }) {
 	const [collaboratorName, setCollaboratorName] = useState('');
 	const [authId, setAuthId] = useState('');
 
-	// Save dark mode on state change
+	// Save different states to local storage on change
 	useLocalStorage('darkMode', darkMode);
+	useLocalStorage('playlistId', playlistId);
 
 	return (
 		<YouTubePlayerContext.Provider

@@ -1,17 +1,15 @@
-import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
+import { Routes, Route } from 'react-router-dom';
 import { PlaylistWrapper } from './styles';
+import Manager from './Manager';
+import CreatePlaylist from './CreatePlaylist';
 
 export default function Playlist() {
-	const { videoId } = useContext(YouTubePlayerContext);
-	const { register, handleSubmit, errors } = useForm();
-
 	return (
 		<PlaylistWrapper>
-			<form>
-				<button>Create playlist</button>
-			</form>
+			<Routes>
+				<Route path="/" element={<Manager />} />
+				<Route path="/create" element={<CreatePlaylist />} />
+			</Routes>
 		</PlaylistWrapper>
 	);
 }

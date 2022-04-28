@@ -8,10 +8,10 @@ export const dbDocUpdates = 'updates';
 
 // Create a playlist with a title and a description
 // A playlist also has a collection of Videos, Collaborators and Updates
-export const createPlaylist = (userName, title, description, removeOnWatch) => {
+export const createPlaylist = (collaboratorName, title, description, removeOnWatch) => {
 	const playlistColRef = collection(db, dbDocPlaylists);
 	return addDoc(playlistColRef, {
-		author: userName || 'Unknown',
+		author: collaboratorName || 'Unknown',
 		dateCreated: serverTimestamp(),
 		title: title || 'Untitled Playlist',
 		description: description || 'No description was provided',

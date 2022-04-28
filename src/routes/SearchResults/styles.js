@@ -95,12 +95,13 @@ export const VideoInfoData = styled.span`
 	font-size: 12px;
 	color: ${({ theme }) => theme.secondary};
 	margin-top: 15px;
+	font-weight: 300;
 `;
 
 export const VideoInfoDescription = styled.p`
 	font-size: 14px;
 	color: ${({ theme }) => theme.secondary};
-	margin-top: 30px;
+	margin-top: 20px;
 `;
 
 export const VideoInfoOptions = styled.div`

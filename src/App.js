@@ -4,6 +4,7 @@ import { authenticateAnonymously } from './services/firestore/auth';
 import ThemeProvider from './context/ThemeContext';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
+import Alerts from './components/Alerts';
 import Header from './components/Header';
 import VideoPlayer from './components/VideoPlayer';
 import SearchResults from './routes/SearchResults';
@@ -137,7 +138,7 @@ function App() {
 				<Route path="/" element={<WelcomeText />} />
 				<Route path="/search" element={<SearchResults />} />
 				<Route path="/video" element={<VideoInfo />} />
-				<Route path="/playlist" element={<Playlist />} />
+				<Route path="/playlist/*" element={<Playlist />} />
 				<Route path="/*" element={<PageNotFound />} />
 			</Routes>
 		</ThemeProvider>
