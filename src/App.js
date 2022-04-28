@@ -1,4 +1,6 @@
-import { YouTubePlayerProvider } from './context/YouTubePlayerContext';
+import { useEffect, useContext } from 'react';
+import { YouTubePlayerContext } from './context/YouTubePlayerContext';
+import { authenticateAnonymously } from './services/firestore/auth';
 import ThemeProvider from './context/ThemeContext';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
@@ -6,10 +8,12 @@ import Header from './components/Header';
 import VideoPlayer from './components/VideoPlayer';
 import SearchResults from './routes/SearchResults';
 import VideoInfo from './routes/VideoInfo';
+import Playlist from './routes/Playlist';
 import WelcomeText from './routes/WelcomeText';
 import PageNotFound from './routes/PageNotFound';
 
 function App() {
+	const { setAuthId, setFirebaseError } = useContext(YouTubePlayerContext);
 	// const [user, setUser] = useState('Valeri');
 	// const [playlist, setPlaylist] = useState();
 	// const [userId, setUserId] = useState();
@@ -23,38 +27,36 @@ function App() {
 	// Use a custom hook to subscribe to the grocery list ID provided as a URL query parameter
 	// const [playlistId, setplaylistId] = useQueryString('playlist');
 
-	// // Use an effect to authenticate and load the grocery list from the database
-	// useEffect(() => {
-	// 	console.log('in auth');
+	// Anonymously authenticate upon app load
+	useEffect(() => {
+		authenticateAnonymously()
+			.then(userCredential => {
+				setAuthId(userCredential.user.uid);
+			})
+			.catch(() => setFirebaseError('anonymous-auth-failed'));
+	}, [setAuthId, setFirebaseError]);
 
-	// 	if (playlistId)
-	// 		FirestoreServiceAuth.authenticateAnonymously()
-	// 			.then(userCredential => {
-	// 				setUserId(userCredential.user.uid);
-	// 				if (playlistId) {
-	// 					console.log('in get playlist');
+	// if (playlistId) {
+	// 	console.log('in get playlist');
 
-	// 					FirestoreServicePlaylist.getPlaylist(playlistId)
-	// 						.then(playlist => {
-	// 							if (playlist.exists()) {
-	// 								setError(null);
-	// 								console.log('found playlist');
-	// 								setPlaylist(playlist.data());
-	// 								console.log(playlist.data());
-	// 							} else {
-	// 								setError('playlist-not-found');
-	// 								console.log('playlist-not-found');
-	// 								setplaylistId();
-	// 							}
-	// 						})
-	// 						.catch(() => {
-	// 							setError('playlist-get-fail');
-	// 							console.log('playlist-get-fail');
-	// 						});
-	// 				}
-	// 			})
-	// 			.catch(() => setError('anonymous-auth-failed'));
-	// }, [playlistId, setplaylistId]);
+	// 	FirestoreServicePlaylist.getPlaylist(playlistId)
+	// 		.then(playlist => {
+	// 			if (playlist.exists()) {
+	// 				setError(null);
+	// 				console.log('found playlist');
+	// 				setPlaylist(playlist.data());
+	// 				console.log(playlist.data());
+	// 			} else {
+	// 				setError('playlist-not-found');
+	// 				console.log('playlist-not-found');
+	// 				setplaylistId();
+	// 			}
+	// 		})
+	// 		.catch(() => {
+	// 			setError('playlist-get-fail');
+	// 			console.log('playlist-get-fail');
+	// 		});
+	// }
 
 	// useEffect(() => {
 	// 	if (!playlistId) return;
@@ -127,51 +129,18 @@ function App() {
 	// };
 
 	return (
-		// <div style={{ display: 'grid', gridTemplateColumns: '50% 50%', gridGap: 10, width: 400 }}>
-		// 	<button onClick={createPlaylist}>Create playlist</button>
-		// 	<span>ID: {playlistId}</span>
-
-		// 	<button onClick={addVideo}>Add Video</button>
-		// 	<input value={videoId} onChange={({ target }) => setVideoId(target.value)} />
-
-		// 	<button onClick={joinUser}>Add user</button>
-		// 	<input value={newUser} onChange={({ target }) => setNewUser(target.value)} />
-
-		// 	<button onClick={deleteVideo}>Delete Video</button>
-		// 	<input value={delVideo} onChange={({ target }) => setDelVideo(target.value)} />
-
-		// 	<div>
-		// 		<h2>saved</h2>
-		// 		<p>36YnV9STBqc</p>
-		// 		<p>bTecHenYWqA</p>
-		// 	</div>
-		// 	<div>
-		// 		{playlistVideos.map(({ data, id }) => {
-		// 			// console.log(video);
-
-		// 			return (
-		// 				<p key={id}>
-		// 					{data.name} - {id}
-		// 				</p>
-		// 			);
-		// 		})}
-		// 	</div>
-
-		// 	<span>{error}</span>
-		// </div>
-		<YouTubePlayerProvider>
-			<ThemeProvider>
-				<GlobalStyle />
-				<Header />
-				<VideoPlayer />
-				<Routes>
-					<Route path="/" element={<WelcomeText />} />
-					<Route path="/search" element={<SearchResults />} />
-					<Route path="/video" element={<VideoInfo />} />
-					<Route path="/*" element={<PageNotFound />} />
-				</Routes>
-			</ThemeProvider>
-		</YouTubePlayerProvider>
+		<ThemeProvider>
+			<GlobalStyle />
+			<Header />
+			<VideoPlayer />
+			<Routes>
+				<Route path="/" element={<WelcomeText />} />
+				<Route path="/search" element={<SearchResults />} />
+				<Route path="/video" element={<VideoInfo />} />
+				<Route path="/playlist" element={<Playlist />} />
+				<Route path="/*" element={<PageNotFound />} />
+			</Routes>
+		</ThemeProvider>
 	);
 }
 

@@ -27,6 +27,7 @@ export function YouTubePlayerProvider({ children }) {
 	const [playlistCollaborators, setPlaylistCollaborators] = useState([]);
 
 	// General state
+	const [firebaseError, setFirebaseError] = useState('');
 	const [darkMode, setDarkMode] = useState(true);
 	const [showVideoOnSearch, setShowVideoOnSearch] = useState(false);
 	const [collaboratorName, setCollaboratorName] = useState('');
@@ -63,7 +64,9 @@ export function YouTubePlayerProvider({ children }) {
 				collaboratorName,
 				setCollaboratorName,
 				authId,
-				setAuthId
+				setAuthId,
+				firebaseError,
+				setFirebaseError
 			}}
 		>
 			{children}
