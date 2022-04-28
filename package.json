@@ -66,6 +66,7 @@
 		"@storybook/preset-create-react-app": "^4.1.0",
 		"@storybook/react": "^6.4.22",
 		"@storybook/testing-library": "^0.0.11",
+		"@testing-library/react": "^13.1.1",
 		"eslint": "^8.14.0",
 		"eslint-config-react-app": "^7.0.1",
 		"eslint-plugin-styled-components-a11y": "^0.0.34",
