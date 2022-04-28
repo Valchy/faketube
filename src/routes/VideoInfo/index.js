@@ -2,14 +2,21 @@ import { useContext } from 'react';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import axios from 'axios';
 import useSWR from 'swr';
+import downloadVideo from '../../utils/downloadVideo';
+import downloadImg from '../../imgs/download.png';
 import {
 	VideoPlayerWrapper,
-	YouTubeVideoWrapper,
-	YouTubeVideoInfo,
-	YouTubeVideoTitle,
-	YouTubeVideoData,
-	YouTubeVideoDescription,
-	YouTubeVideoGenre
+	Wrapper,
+	Info,
+	Title,
+	VideoData,
+	DescriptionWrapper,
+	DescriptionTitle,
+	Description,
+	GenreOptionsWrapper,
+	Genre,
+	Options,
+	DownloadButton
 } from './styles';
 
 export default function VideoPlayerRoute() {
@@ -27,16 +34,29 @@ export default function VideoPlayerRoute() {
 
 	return (
 		<VideoPlayerWrapper>
-			<YouTubeVideoWrapper>
-				<YouTubeVideoInfo>
-					<YouTubeVideoTitle>{data.data.title}</YouTubeVideoTitle>
-					<YouTubeVideoData>
+			<Wrapper>
+				<Info>
+					<Title>{data.data.title}</Title>
+					<VideoData>
 						{numberWithCommas(data.data.views)} views • {data.data.datePublished}
-						<YouTubeVideoGenre>Genre: {data.data.genre || 'Unknown'}</YouTubeVideoGenre>
-					</YouTubeVideoData>
-					<YouTubeVideoDescription>{data.data.description}</YouTubeVideoDescription>
-				</YouTubeVideoInfo>
-			</YouTubeVideoWrapper>
+					</VideoData>
+
+					<DescriptionWrapper>
+						<GenreOptionsWrapper>
+							<Genre>
+								<DescriptionTitle>Genre</DescriptionTitle>
+								{data.data.genre || 'Unknown'}
+							</Genre>
+							<Options>
+								<DownloadButton onClick={() => downloadVideo(videoId)} src={downloadImg} />
+							</Options>
+						</GenreOptionsWrapper>
+						<Description>
+							<DescriptionTitle>Description</DescriptionTitle> {data.data.description}
+						</Description>
+					</DescriptionWrapper>
+				</Info>
+			</Wrapper>
 		</VideoPlayerWrapper>
 	);
 }
