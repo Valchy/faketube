@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export const YouTubePlayerContext = createContext();
 
@@ -29,10 +30,13 @@ export function YouTubePlayerProvider({ children }) {
 
 	// General state
 	const [firebaseError, setFirebaseError] = useState('');
-	const [darkMode, toggleDarkMode] = useToggle(true);
+	const [darkMode, toggleDarkMode] = useToggle(window.localStorage?.darkMode === 'false' ? false : true);
 	const [showVideoOnSearch, toggleShowVideoOnSearch] = useToggle(false);
 	const [collaboratorName, setCollaboratorName] = useState('');
 	const [authId, setAuthId] = useState('');
+
+	// Save dark mode on state change
+	useLocalStorage('darkMode', darkMode);
 
 	return (
 		<YouTubePlayerContext.Provider

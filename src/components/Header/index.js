@@ -7,15 +7,19 @@ import Search from './Search';
 import Menu from './Menu';
 
 export default function Header() {
-	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, toggleShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const navigate = useNavigate();
+	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, toggleShowVideoOnSearch, toggleDarkMode } =
+		useContext(YouTubePlayerContext);
 
+	// On search handler
 	const handleSearch = (e, search) => {
 		e.preventDefault();
 		if (!search) return navigate('/');
 
+		// Make youtube video continue to play in corner
 		if (videoId) toggleShowVideoOnSearch(true);
 
+		// Set state and navigate to url
 		setVideoSearch(search);
 		navigate(`/search?q=${search}`, { replace: true });
 	};
@@ -24,7 +28,7 @@ export default function Header() {
 		<Navbar>
 			<Logo setVideoId={setVideoId} text="FakeTube" alt="Cartoonish looking youtube logo" />
 			<Search handleSearch={handleSearch} videoSearch={videoSearch} buttonText="Search" placeholder="Go for anything..." />
-			<Menu darkMode={darkMode} />
+			<Menu darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 		</Navbar>
 	);
 }

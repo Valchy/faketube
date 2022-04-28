@@ -108,7 +108,7 @@ export const SearchButtonImg = styled.img`
 `;
 
 export const SearchButtonText = styled.span`
-	color: ${({ theme }) => theme.primary};
+	color: #222;
 
 	@media (max-width: 800px) {
 		display: none;

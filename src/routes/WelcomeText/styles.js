@@ -27,4 +27,5 @@ export const Quote = styled.h2`
 
 export const GreetImg = styled.img`
 	width: 256px;
+	height: 256px;
 `;
