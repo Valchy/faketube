@@ -16,7 +16,7 @@ import {
 } from './styles';
 
 export default function SearchRoute() {
-	const { videoSearch, setVideoId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
+	const { videoSearch, setVideoId, toggleShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const fetcher = url =>
 		axios.get(url, {
 			headers: {
@@ -29,7 +29,7 @@ export default function SearchRoute() {
 	if (error || !data) return;
 
 	const videoClickHandler = vidId => {
-		setShowVideoOnSearch(false);
+		toggleShowVideoOnSearch(false);
 		setVideoId(vidId);
 	};
 

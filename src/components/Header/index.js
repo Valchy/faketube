@@ -7,14 +7,14 @@ import Search from './Search';
 import Menu from './Menu';
 
 export default function Header() {
-	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
+	const { darkMode, videoId, setVideoId, videoSearch, setVideoSearch, toggleShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const navigate = useNavigate();
 
 	const handleSearch = (e, search) => {
 		e.preventDefault();
 		if (!search) return navigate('/');
 
-		if (videoId) setShowVideoOnSearch(true);
+		if (videoId) toggleShowVideoOnSearch(true);
 
 		setVideoSearch(search);
 		navigate(`/search?q=${search}`, { replace: true });

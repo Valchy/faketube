@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useToggle from '../hooks/useToggle';
 
 export const YouTubePlayerContext = createContext();
 
@@ -17,8 +18,8 @@ export function YouTubePlayerProvider({ children }) {
 	// Video player state
 	const [videoId, setVideoId] = useState(w || '');
 	const [videoElapsedTime, setVideoElapsedTime] = useState(0);
-	const [isPlaying, setIsPlaying] = useState(true);
-	const [isMuted, setIsMuted] = useState(false);
+	const [isPlaying, toggleIsPlaying] = useToggle(true);
+	const [isMuted, toggleIsMuted] = useToggle(false);
 
 	// Playlist state
 	const [playlistId, setPlaylistId] = useState(playlist || '');
@@ -28,8 +29,8 @@ export function YouTubePlayerProvider({ children }) {
 
 	// General state
 	const [firebaseError, setFirebaseError] = useState('');
-	const [darkMode, setDarkMode] = useState(true);
-	const [showVideoOnSearch, setShowVideoOnSearch] = useState(false);
+	const [darkMode, toggleDarkMode] = useToggle(true);
+	const [showVideoOnSearch, toggleShowVideoOnSearch] = useToggle(false);
 	const [collaboratorName, setCollaboratorName] = useState('');
 	const [authId, setAuthId] = useState('');
 
@@ -41,18 +42,18 @@ export function YouTubePlayerProvider({ children }) {
 				videoSearch,
 				setVideoSearch,
 				darkMode,
-				setDarkMode,
+				toggleDarkMode,
 				showVideoOnSearch,
-				setShowVideoOnSearch,
+				toggleShowVideoOnSearch,
 				pathname,
 				videoSearchResults,
 				setVideoSearchResults,
 				videoElapsedTime,
 				setVideoElapsedTime,
 				isPlaying,
-				setIsPlaying,
+				toggleIsPlaying,
 				isMuted,
-				setIsMuted,
+				toggleIsMuted,
 				playlistId,
 				setPlaylistId,
 				playlistVideos,

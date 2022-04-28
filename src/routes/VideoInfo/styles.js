@@ -67,8 +67,9 @@ export const Options = styled.div`
 	justify-content: flex-end;
 `;
 
-export const DownloadButton = styled.img`
+export const OptionImg = styled.img`
 	cursor: pointer;
-	width: 22px;
-	height: 22px;
+	width: 26px;
+	height: 26px;
+	margin-left: 15px;
 `;

@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
-import axios from 'axios';
 import useSWR from 'swr';
+import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
+import fetcher from '../../utils/fetcher';
 import downloadVideo from '../../utils/downloadVideo';
 import downloadImg from '../../imgs/download.png';
+import addToPlaylistImg from '../../imgs/add-to-playlist.png';
 import {
 	VideoPlayerWrapper,
 	Wrapper,
@@ -16,20 +17,14 @@ import {
 	GenreOptionsWrapper,
 	Genre,
 	Options,
-	DownloadButton
+	OptionImg
 } from './styles';
 
 export default function VideoPlayerRoute() {
 	const { videoId } = useContext(YouTubePlayerContext);
-	const fetcher = url =>
-		axios.get(url, {
-			headers: {
-				'Access-Control-Allow-Origin': true
-			}
-		});
-
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
 
+	// Error handling
 	if (error || !data) return;
 
 	return (
@@ -47,10 +42,13 @@ export default function VideoPlayerRoute() {
 								<DescriptionTitle>Genre</DescriptionTitle>
 								{data.data.genre || 'Unknown'}
 							</Genre>
+
 							<Options>
-								<DownloadButton onClick={() => downloadVideo(videoId)} src={downloadImg} />
+								<OptionImg src={addToPlaylistImg} />
+								<OptionImg onClick={() => downloadVideo(videoId)} src={downloadImg} />
 							</Options>
 						</GenreOptionsWrapper>
+
 						<Description>
 							<DescriptionTitle>Description</DescriptionTitle> {data.data.description}
 						</Description>
