@@ -2,19 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { getPlaylist } from '../../services/firestore/playlist';
+import PlaylistVideo from '../../components/PlaylistVideo';
 import useVideoStream from '../../hooks/useVideoStream';
-import {
-	Title,
-	PlaylistDescription,
-	PlaylistInfo,
-	PlaylistVideoWrapper,
-	PlaylistVideos,
-	PlaylistVideo,
-	VideoThumbnail,
-	VideoInfo
-} from './styles';
+import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos } from './styles';
 
-export default function EditPlaylist() {
+export default function ViewPlaylist() {
 	const { playlistIdFromURL } = useParams();
 	const { setPlaylistId, playlistVideos, setPlaylistVideos } = useContext(YouTubePlayerContext);
 	const [playlistAuthor, setPlaylistAuthor] = useState('');
@@ -54,11 +46,8 @@ export default function EditPlaylist() {
 
 			<PlaylistVideoWrapper>
 				<PlaylistVideos>
-					{playlistVideos.reverse().map(({ data, id }) => (
-						<PlaylistVideo key={id}>
-							<VideoThumbnail />
-							<VideoInfo></VideoInfo>
-						</PlaylistVideo>
+					{playlistVideos.map(({ data, id }) => (
+						<PlaylistVideo key={id} {...data} />
 					))}
 				</PlaylistVideos>
 			</PlaylistVideoWrapper>

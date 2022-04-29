@@ -115,19 +115,3 @@ export const PlaylistVideos = styled.div`
 		width: calc(100vw - 20px);
 	}
 `;
-
-export const PlaylistVideo = styled.div`
-	display: flex;
-	flex-direction: column;
-	aspect-ratio: 16 / 9;
-`;
-
-export const VideoThumbnail = styled.img`
-	width: 100%;
-	background-color: #000;
-	aspect-ratio: 16 / 9;
-`;
-
-export const VideoInfo = styled.span`
-	font-size: 16px;
-`;
