@@ -23,9 +23,9 @@ export default function YouTubeVideo({
 				playerVars: {
 					showinfo: 0,
 					modestbranding: 1,
-					start: timeElapsed,
 					autoplay: isPlaying,
-					mute: isMuted
+					mute: isMuted,
+					start: timeElapsed
 				}
 			}}
 		/>
