@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Video = styled.div`
 	display: flex;
 	flex-direction: column;
-	aspect-ratio: 16 / 9;
 `;
 
 export const Thumbnail = styled.img`
