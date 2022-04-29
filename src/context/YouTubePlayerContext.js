@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useVideoStream from '../hooks/useVideoStream';
-import usePlaylistChanges from '../hooks/usePlaylistChanges';
+import useUpdateStream from '../hooks/useUpdateStream';
+import useCollaboratorStream from '../hooks/useCollaboratorStream';
 import usePlaylistStream from '../hooks/usePlaylistStream';
 import { showInfo } from '../services/swal';
 
@@ -39,12 +40,13 @@ export function YouTubePlayerProvider({ children }) {
 
 	// Subscribe to global live socket changes
 	useVideoStream(playlistId, setPlaylistVideos);
-	usePlaylistChanges(playlistId, setPlaylistUpdates);
+	useUpdateStream(playlistId, setPlaylistUpdates);
+	useCollaboratorStream(playlistId, setPlaylistCollaborators);
 	// usePlaylistStream(playlistId, setVideoId);
 
-	useEffect(() => {
-		if (playlistUpdates.length > 0) showInfo(playlistUpdates[0]);
-	}, [playlistUpdates]);
+	// useEffect(() => {
+	// 	if (playlistUpdates.length > 0) showInfo(playlistUpdates[0]);
+	// }, [playlistUpdates]);
 
 	return (
 		<YouTubePlayerContext.Provider

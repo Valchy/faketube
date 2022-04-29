@@ -71,8 +71,7 @@ export const Input = styled.input`
 
 export const SubmitButton = styled.button`
 	align-self: center;
-	font-size: 16px;
-	padding: 10px 15px;
+	padding: 12px 18px;
 	color: #222;
 	cursor: pointer;
 `;

@@ -18,7 +18,8 @@ export default function VideoPlayer() {
 	const whatToPlay = () => {
 		const _playlistVideos = playlistVideos.map(({ data: { videoId } }) => videoId);
 		const nextVideo = playNext(_playlistVideos || videoSearchResults, videoId);
-		setVideoId(nextVideo);
+
+		if (nextVideo) setVideoId(nextVideo);
 	};
 
 	return (

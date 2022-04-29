@@ -29,3 +29,8 @@ export const GreetImg = styled.img`
 	width: 256px;
 	height: 256px;
 `;
+
+export const ChangeName = styled.button`
+	padding: 12px 18px;
+	margin-top: 30px;
+`;

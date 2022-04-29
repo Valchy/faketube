@@ -24,15 +24,6 @@ function App() {
 			.catch(() => console.log('anonymous-auth-failed'));
 	}, [setAuthId]);
 
-	// const joinUser = () => {
-	// 	FirestoreServicePlaylistUsers.addUpdatePlaylistCollaborator(playlistId, newUser, userId)
-	// 		.then(() => console.log('user added'))
-	// 		.catch(err => {
-	// 			console.log(err);
-	// 			setError('add-user-to-list-error');
-	// 		});
-	// };
-
 	return (
 		<ThemeProvider>
 			<GlobalStyle />
