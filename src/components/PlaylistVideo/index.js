@@ -31,11 +31,7 @@ export default function PlaylistVideo({ id, videoId, author, dateCreated }) {
 
 	return (
 		<Video>
-			<Thumbnail
-				src={data?.data?.thumbnailUrl}
-				onClick={videoClickHanlder}
-				title={`Added by ${author} on ${formatDate(dateCreated)}`}
-			/>
+			<Thumbnail src={data?.data?.thumbnailUrl} onClick={videoClickHanlder} />
 			<Title>{data?.data?.title}</Title>
 			<Description>
 				<InfoWrapper>
