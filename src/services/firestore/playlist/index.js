@@ -35,6 +35,8 @@ export const streamPlaylist = (playlistId, snapshot, error) => {
 
 // Get playlist data based on playlist ID
 export const getPlaylist = playlistId => {
+	if (!playlistId) return;
+
 	const playlistDocRef = doc(db, dbDocPlaylists, playlistId);
 	return getDoc(playlistDocRef);
 };
