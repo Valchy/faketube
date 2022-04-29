@@ -22,7 +22,7 @@ export default function copyToClipboard(text) {
 		if (!navigator.clipboard) fallbackCopyTextToClipboard(text);
 		else navigator.clipboard.writeText(text);
 
-		showSuccess('Playlist URL copied to clipboard');
+		showSuccess('URL copied to clipboard');
 	} catch (err) {
 		showError();
 	}

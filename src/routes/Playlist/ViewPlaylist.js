@@ -8,6 +8,7 @@ import useVideoStream from '../../hooks/useVideoStream';
 import QRCode from '../../components/QRCode';
 import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos, AddVideosWrapper, AddVideos } from './styles';
 import { showError } from '../../services/swal';
+import { useNavigate } from 'react-router-dom';
 
 export default function ViewPlaylist() {
 	const { playlistIdFromURL } = useParams();
@@ -16,6 +17,7 @@ export default function ViewPlaylist() {
 	const [playlistTitle, setPlaylistTitle] = useState('');
 	const [playlistDescription, setPlaylistDescription] = useState('');
 	const [playlistDateCreated, setPlaylistDateCreated] = useState(null);
+	const navigate = useNavigate();
 
 	// Fire up live video stream of changes
 	useVideoStream(playlistIdFromURL, setPlaylistVideos);
@@ -33,12 +35,16 @@ export default function ViewPlaylist() {
 					setPlaylistDateCreated(dateCreated.seconds);
 				} else {
 					showError('Playlist not found');
+					setPlaylistId('');
+					navigate('/playlist');
 				}
 			})
 			.catch(() => {
 				showError('Failed getting playlist');
+				setPlaylistId('');
+				navigate('/playlist');
 			});
-	}, [playlistIdFromURL, setPlaylistId]);
+	}, [playlistIdFromURL, setPlaylistId, navigate]);
 
 	return (
 		<>
