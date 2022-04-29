@@ -3,7 +3,7 @@ import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { addUpdatePlaylistCollaborator } from '../../services/firestore/playlist/collaborators';
 import { Wrapper, Hello, Quote, GreetImg, ChangeName } from './styles';
 import greetImg from '../../imgs/family.png';
-import { promptName, showError, showSuccess } from '../../services/swal';
+import { promptName } from '../../services/swal';
 
 export default function WelcomeText() {
 	const { setShowVideoOnSearch, playlistId, setCollaboratorName, authId } = useContext(YouTubePlayerContext);
@@ -11,10 +11,10 @@ export default function WelcomeText() {
 
 	const changeNameHandler = () => {
 		promptName(newName => {
+			if (!newName || newName === 'Anonymous') return;
+
 			setCollaboratorName(newName);
-			addUpdatePlaylistCollaborator(playlistId, newName, authId)
-				.then(() => showSuccess('User name has been set!'))
-				.catch(() => showError('User name not changed :/'));
+			addUpdatePlaylistCollaborator(playlistId, newName, authId);
 		});
 	};
 

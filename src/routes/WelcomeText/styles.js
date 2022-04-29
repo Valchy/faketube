@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
 	margin-top: ${({ theme }) => theme.topMargin};
 	padding: ${({ theme }) => theme.padding};
+	padding-bottom: 0;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -33,4 +34,5 @@ export const GreetImg = styled.img`
 export const ChangeName = styled.button`
 	padding: 12px 18px;
 	margin-top: 30px;
+	color: #222;
 `;

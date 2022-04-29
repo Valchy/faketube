@@ -1,7 +1,7 @@
 import { db } from '../auth';
 import { dbDocPlaylists, dbDocCollaborators } from '.';
 import { collection, getDocs, setDoc, updateDoc, doc, onSnapshot } from '@firebase/firestore';
-import { showError } from '../../swal';
+import { showError, showSuccess } from '../../swal';
 
 // Add or update playlist collaborator based on auth_id (session anonymous id)
 // This allows anyone to change their name infinite amount of times
@@ -31,8 +31,10 @@ export const addUpdatePlaylistCollaborator = async (playlistId, collaboratorName
 	};
 
 	// Update collaborator if exists or create a new one with collaborator auth_id
-	if (matchingCollaborator) return updateDoc(collaboratorDocRef, collaboratorData);
-	else return setDoc(collaboratorDocRef, collaboratorData);
+	if (matchingCollaborator) updateDoc(collaboratorDocRef, collaboratorData);
+	else setDoc(collaboratorDocRef, collaboratorData);
+
+	showSuccess('User name has been set!');
 };
 
 // Live stream playlist changes with websockets under the hood
