@@ -2,6 +2,7 @@ import { createContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
+import useVideoStream from '../hooks/useVideoStream';
 import usePlaylistStream from '../hooks/usePlaylistStream';
 
 export const YouTubePlayerContext = createContext();
@@ -12,18 +13,10 @@ export function YouTubePlayerProvider({ children }) {
 	const q = new URLSearchParams(search).get('q');
 	const w = new URLSearchParams(search).get('w');
 
-	// Video search state
+	// Video state
 	const [videoSearch, setVideoSearch] = useState(q || '');
 	const [videoSearchResults, setVideoSearchResults] = useState([]);
-
-	// Video player state
 	const [videoId, setVideoId] = useState(w || '');
-	const [current, setCurrent] = useState({
-		nextVideoId: null,
-		isPlaying: true,
-		isMute: false,
-		timeElapsed: 0
-	});
 
 	// Playlist state
 	const [playlistId, setPlaylistId] = useState(window.localStorage?.playlistId || '');
@@ -42,8 +35,9 @@ export function YouTubePlayerProvider({ children }) {
 	useLocalStorage('playlistId', playlistId);
 	useLocalStorage('collaboratorName', collaboratorName);
 
-	// Subscribe globally to playlist changes
-	usePlaylistStream(playlistId, setCurrent);
+	// Subscribe to global live socket changes
+	useVideoStream(playlistId, setPlaylistVideos);
+	// usePlaylistStream(playlistId);
 
 	return (
 		<YouTubePlayerContext.Provider
@@ -59,8 +53,6 @@ export function YouTubePlayerProvider({ children }) {
 				pathname,
 				videoSearchResults,
 				setVideoSearchResults,
-				current,
-				setCurrent,
 				playlistId,
 				setPlaylistId,
 				playlistVideos,

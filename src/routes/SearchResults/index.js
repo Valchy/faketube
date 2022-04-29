@@ -26,11 +26,12 @@ import {
 } from './styles';
 
 export default function SearchRoute() {
-	const { videoSearch } = useContext(YouTubePlayerContext);
+	const { videoSearch, setVideoSearchResults } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
 
 	// Error handling
 	if (error || !data) return;
+	// else if (data.data) setVideoSearchResults(data.data.map(({ videoId }) => videoId));
 
 	return (
 		<SearchResultsWrapper>

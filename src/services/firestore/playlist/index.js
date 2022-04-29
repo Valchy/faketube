@@ -15,14 +15,14 @@ export const createPlaylist = (collaboratorName, title, description, removeOnWat
 		dateCreated: serverTimestamp(),
 		title: title || 'Untitled Playlist',
 		description: description || 'No description was provided',
-		removeOnWatch: removeOnWatch || false,
-		current: {
-			videoId: null,
-			nextVideoId: null,
-			isPlaying: true,
-			isMute: false,
-			timeElapsed: 0
-		}
+		removeOnWatch: removeOnWatch || false
+		// currentVideoId: null,
+		// current: {
+		// 	nextVideoId: null,
+		// 	isPlaying: true,
+		// 	isMute: false,
+		// 	timeElapsed: 0
+		// }
 	});
 };
 
@@ -40,7 +40,11 @@ export const getPlaylist = playlistId => {
 };
 
 // Update playlist data based on playlist ID
-export const updatePlaylist = (playlistId, current) => {
+export const updatePlaylist = (playlistId, change, value) => {
+	if (!playlistId || !change || !value) return;
+
 	const playlistDocRef = doc(db, dbDocPlaylists, playlistId);
-	return updateDoc(playlistDocRef, current).catch(err => console.log(err));
+	return updateDoc(playlistDocRef, {
+		[change]: value
+	}).catch(err => {});
 };

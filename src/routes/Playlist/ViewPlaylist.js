@@ -4,7 +4,6 @@ import formatDate from '../../utils/formatDate';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { getPlaylist } from '../../services/firestore/playlist';
 import PlaylistVideo from '../../components/PlaylistVideo';
-import useVideoStream from '../../hooks/useVideoStream';
 import QRCode from '../../components/QRCode';
 import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos, AddVideosWrapper, AddVideos } from './styles';
 import { showError } from '../../services/swal';
@@ -12,15 +11,12 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ViewPlaylist() {
 	const { playlistIdFromURL } = useParams();
-	const { setPlaylistId, playlistVideos, setPlaylistVideos } = useContext(YouTubePlayerContext);
+	const { setPlaylistId, playlistVideos } = useContext(YouTubePlayerContext);
 	const [playlistAuthor, setPlaylistAuthor] = useState('');
 	const [playlistTitle, setPlaylistTitle] = useState('');
 	const [playlistDescription, setPlaylistDescription] = useState('');
 	const [playlistDateCreated, setPlaylistDateCreated] = useState(null);
 	const navigate = useNavigate();
-
-	// Fire up live video stream of changes
-	useVideoStream(playlistIdFromURL, setPlaylistVideos);
 
 	// Get playlist info on load
 	useEffect(() => {
