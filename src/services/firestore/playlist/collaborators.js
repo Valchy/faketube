@@ -1,22 +1,27 @@
 import { db } from '../auth';
 import { dbDocPlaylists, dbDocCollaborators } from '.';
 import { collection, getDocs, setDoc, updateDoc, doc } from '@firebase/firestore';
+import { showError } from '../../swal';
 
 // Add or update playlist collaborator based on auth_id (session anonymous id)
 // This allows anyone to change their name infinite amount of times
 // while at the same time not creating new collaborator while also not having proper authentication
 export const addUpdatePlaylistCollaborator = async (playlistId, collaboratorName, collaboratorId) => {
 	// Error handling
-	if (!playlistId) throw new Error('No playlist is selected');
-	else if (!collaboratorName) throw new Error('No collaborator name was provided');
-	else if (!collaboratorId) throw new Error('No collaborator ID was provided');
+	if (!playlistId) return showError('No playlist is selected');
+	else if (!collaboratorName) return showError('No collaborator name was provided');
+	else if (!collaboratorId) return showError('No collaborator ID was provided');
 
 	// Getting playlist collaborators
 	const collaboratorsColRef = collection(db, dbDocPlaylists, playlistId, dbDocCollaborators);
 	const collaborators = await getDocs(collaboratorsColRef);
 
 	// Searching if collaborator already exists in the playlist with the given collaborator ID
-	const matchingCollaborator = collaborators.docs.find(collaborator => collaborator.data().auth_id === collaboratorId);
+	const matchingCollaborator = collaborators.docs.find(collaborator => {
+		const data = collaborator.data();
+		const collabId = data.auth_id;
+		return collabId === collaboratorId;
+	});
 
 	// Collaborator document with custom collaborator auth_id
 	const collaboratorDocRef = doc(db, dbDocPlaylists, playlistId, dbDocCollaborators, collaboratorId);

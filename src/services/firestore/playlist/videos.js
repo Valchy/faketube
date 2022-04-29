@@ -4,7 +4,7 @@ import { query, orderBy, onSnapshot, collection, getDocs, addDoc, deleteDoc, doc
 import { showError, showSuccess } from '../../swal';
 
 // Add video to playlist based on playlist ID
-export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, timeElapsed, isPlaying, isMuted) => {
+export const addPlaylistVideo = async (playlistId, videoId, collaboratorName) => {
 	try {
 		// Error handling
 		doErrorHandling(playlistId, videoId);
@@ -26,10 +26,7 @@ export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, ti
 			return addDoc(videosColRef, {
 				author: collaboratorName || 'Anonymous',
 				dateCreated: serverTimestamp(),
-				videoId: videoId,
-				timeElapsed: timeElapsed || 0,
-				isPlaying: isPlaying || true,
-				isMuted: isMuted || false
+				videoId: videoId
 			})
 				.then(() => showSuccess('Video added to playlist'))
 				.catch(() => showError('Video not added :/'));

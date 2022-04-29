@@ -7,6 +7,7 @@ import PlaylistVideo from '../../components/PlaylistVideo';
 import useVideoStream from '../../hooks/useVideoStream';
 import QRCode from '../../components/QRCode';
 import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos, AddVideosWrapper, AddVideos } from './styles';
+import { showError } from '../../services/swal';
 
 export default function ViewPlaylist() {
 	const { playlistIdFromURL } = useParams();
@@ -31,11 +32,11 @@ export default function ViewPlaylist() {
 					setPlaylistDescription(description);
 					setPlaylistDateCreated(dateCreated.seconds);
 				} else {
-					console.log('playlist-not-found');
+					showError('Playlist not found');
 				}
 			})
 			.catch(() => {
-				console.log('playlist-get-fail');
+				showError('Failed getting playlist');
 			});
 	}, [playlistIdFromURL, setPlaylistId]);
 

@@ -25,7 +25,7 @@ import {
 } from './styles';
 
 export default function VideoPlayerRoute() {
-	const { videoId, playlistId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
+	const { videoId, playlistId, setShowVideoOnSearch, collaboratorName } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
 	const addVideoToPlaylist = useFnAgainAfter(2500);
 	const startDownload = useFnAgainAfter(5000);
@@ -57,7 +57,7 @@ export default function VideoPlayerRoute() {
 
 							<Options>
 								<OptionImg
-									onClick={e => addVideoToPlaylist(e, addPlaylistVideo, playlistId, videoId)}
+									onClick={e => addVideoToPlaylist(e, addPlaylistVideo, playlistId, videoId, collaboratorName)}
 									src={addToPlaylistImg}
 									title="Add to playlist"
 									alt="Add to playlist"

@@ -46,7 +46,7 @@ export default function SearchRoute() {
 }
 
 export const VideoResult = ({ id: { videoId }, title, description, views, snippet: { duration, publishedAt, thumbnails } }) => {
-	const { playlistId, setVideoId } = useContext(YouTubePlayerContext);
+	const { playlistId, setVideoId, collaboratorName } = useContext(YouTubePlayerContext);
 	const navigate = useNavigate();
 	const addVideoToPlaylist = useFnAgainAfter(2500);
 	const startDownload = useFnAgainAfter(5000);
@@ -74,7 +74,7 @@ export const VideoResult = ({ id: { videoId }, title, description, views, snippe
 				<VideoInfoOptions>
 					{playlistId && (
 						<OptionImg
-							onClick={e => addVideoToPlaylist(e, addPlaylistVideo, playlistId, videoId)}
+							onClick={e => addVideoToPlaylist(e, addPlaylistVideo, playlistId, videoId, collaboratorName)}
 							src={addToPlaylistImg}
 							title="Add to playlist"
 							alt="Add to playlist"
