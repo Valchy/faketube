@@ -23,8 +23,8 @@ export default function ViewPlaylist() {
 		getPlaylist(playlistIdFromURL)
 			.then(playlist => {
 				if (playlist.exists()) {
-					setPlaylistId(playlistIdFromURL);
 					const { author, title, description, dateCreated } = playlist.data();
+					setPlaylistId(playlistIdFromURL);
 					setPlaylistAuthor(author);
 					setPlaylistTitle(title);
 					setPlaylistDescription(description);

@@ -10,7 +10,6 @@ export default function VideoPlayer() {
 	const { videoId, setVideoId, playlistVideos, videoSearchResults, showVideoOnSearch, setShowVideoOnSearch, pathname } =
 		useContext(YouTubePlayerContext);
 	const navigate = useNavigate();
-	console.log(playlistVideos, videoSearchResults);
 
 	// Error handling
 	if ((!showVideoOnSearch && pathname !== '/video') || !videoId) return;

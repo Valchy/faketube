@@ -38,10 +38,10 @@ export function YouTubePlayerProvider({ children }) {
 
 	// Subscribe to global live socket changes
 	useVideoStream(playlistId, setPlaylistVideos);
-	usePlaylistStream(playlistId);
+	usePlaylistStream(playlistId, setVideoId);
 
 	useEffect(() => {
-		showInfo(playlistUpdates[0]);
+		if (playlistUpdates.length > 0) showInfo(playlistUpdates[0]);
 	}, [playlistUpdates]);
 
 	return (

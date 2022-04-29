@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { streamPlaylist } from '../services/firestore/playlist';
 
 // Stream playlist state and update every time there is a database change
-export const usePlaylistStream = (playlistId, setVideoId, setTimeElapsed) => {
+export const usePlaylistStream = (playlistId, setVideoId) => {
 	useEffect(() => {
 		// Error handling
 		if (!playlistId) return;
@@ -14,7 +14,6 @@ export const usePlaylistStream = (playlistId, setVideoId, setTimeElapsed) => {
 
 				if (data) {
 					setVideoId(data.currentVideoId);
-					setTimeElapsed(data.currentTimeElapsed);
 				}
 			},
 			error => {
@@ -23,7 +22,7 @@ export const usePlaylistStream = (playlistId, setVideoId, setTimeElapsed) => {
 		);
 
 		return unsubscribe;
-	}, [playlistId, setVideoId, setTimeElapsed]);
+	}, [playlistId, setVideoId]);
 };
 
 export default usePlaylistStream;
