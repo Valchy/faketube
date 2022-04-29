@@ -7,9 +7,9 @@ export default function useFnAgainAfter(ms = 1000) {
 		// Error handling
 		if (clicked) return;
 
-		e.preventDefault();
+		e?.preventDefault();
 		setClicked(true);
-		setTimeout(() => setClicked(false), ms);
+		if (ms !== 0) setTimeout(() => setClicked(false), ms);
 		fn(...args);
 	};
 
