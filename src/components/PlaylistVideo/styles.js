@@ -19,11 +19,26 @@ export const Title = styled.h2`
 	margin-top: 10px;
 `;
 
-export const Info = styled.span`
-	font-size: 12px;
+export const Description = styled.div`
+	display: flex;
+	justify-content: space-between;
 	margin-top: 15px;
 `;
 
+export const InfoWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
+export const Info = styled.span`
+	font-size: 12px;
+`;
+
+export const Options = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
 export const DeleteButton = styled.img`
-	width: 32px;
+	width: 28px;
 `;

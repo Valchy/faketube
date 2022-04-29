@@ -48,7 +48,7 @@ export default function ViewPlaylist() {
 			<PlaylistVideoWrapper>
 				<PlaylistVideos>
 					{playlistVideos.map(({ data, id }) => (
-						<PlaylistVideo key={id} {...data} />
+						<PlaylistVideo key={id} id={id} {...data} />
 					))}
 				</PlaylistVideos>
 			</PlaylistVideoWrapper>
