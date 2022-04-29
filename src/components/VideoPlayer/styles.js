@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ReactYouTube from 'react-youtube';
 
 export const VideoPlayerWrapper = styled.div`
-	display: flex;
+	display: ${({ showVideoOnSearch, pathname, videoId }) => ((!showVideoOnSearch && pathname !== '/video') || !videoId ? 'none' : 'flex')};
 	justify-content: center;
 	margin-top: ${({ theme, showVideoOnSearch }) => (showVideoOnSearch ? 0 : theme.topMargin)};
 	padding: ${({ theme, showVideoOnSearch }) => (showVideoOnSearch ? 0 : theme.padding)};

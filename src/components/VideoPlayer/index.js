@@ -7,12 +7,9 @@ import popupImg from '../../imgs/popup.png';
 import YouTubeVideo from './YouTubeVideo';
 
 export default function VideoPlayer() {
+	const navigate = useNavigate();
 	const { videoId, setVideoId, playlistVideos, videoSearchResults, showVideoOnSearch, setShowVideoOnSearch, pathname } =
 		useContext(YouTubePlayerContext);
-	const navigate = useNavigate();
-
-	// Error handling
-	if ((!showVideoOnSearch && pathname !== '/video') || !videoId) return;
 
 	// Play next song on a shuffle basis
 	const whatToPlay = () => {
@@ -23,7 +20,7 @@ export default function VideoPlayer() {
 	};
 
 	return (
-		<VideoPlayerWrapper showVideoOnSearch={showVideoOnSearch}>
+		<VideoPlayerWrapper showVideoOnSearch={showVideoOnSearch} videoId={videoId} pathname={pathname}>
 			<YouTubeVideoWrapper showVideoOnSearch={showVideoOnSearch}>
 				{showVideoOnSearch && (
 					<>

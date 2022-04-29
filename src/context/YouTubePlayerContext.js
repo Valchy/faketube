@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState /* useEffect */ } from 'react';
 import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useVideoStream from '../hooks/useVideoStream';
 import useUpdateStream from '../hooks/useUpdateStream';
 import useCollaboratorStream from '../hooks/useCollaboratorStream';
-import usePlaylistStream from '../hooks/usePlaylistStream';
-import { showInfo } from '../services/swal';
+// import usePlaylistStream from '../hooks/usePlaylistStream';
+// import { showInfo } from '../services/swal';
 
 export const YouTubePlayerContext = createContext();
 
@@ -56,10 +56,10 @@ export function YouTubePlayerProvider({ children }) {
 				videoSearch,
 				setVideoSearch,
 				darkMode,
+				pathname,
 				toggleDarkMode,
 				showVideoOnSearch,
 				setShowVideoOnSearch,
-				pathname,
 				videoSearchResults,
 				setVideoSearchResults,
 				playlistId,
