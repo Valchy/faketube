@@ -35,6 +35,12 @@ export const showConfirm = (msg, action) =>
 		preConfirm: () => action()
 	});
 
+export const showInfo = () =>
+	Toast.fire({
+		icon: 'info',
+		title: 'Some update'
+	});
+
 export const showLoading = () =>
 	Swal.fire({
 		title: 'Loading',

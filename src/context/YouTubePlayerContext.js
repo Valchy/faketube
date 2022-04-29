@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useVideoStream from '../hooks/useVideoStream';
 import usePlaylistStream from '../hooks/usePlaylistStream';
+import { showInfo } from '../services/swal';
 
 export const YouTubePlayerContext = createContext();
 
@@ -37,7 +38,11 @@ export function YouTubePlayerProvider({ children }) {
 
 	// Subscribe to global live socket changes
 	useVideoStream(playlistId, setPlaylistVideos);
-	// usePlaylistStream(playlistId);
+	usePlaylistStream(playlistId);
+
+	useEffect(() => {
+		showInfo(playlistUpdates[0]);
+	}, [playlistUpdates]);
 
 	return (
 		<YouTubePlayerContext.Provider

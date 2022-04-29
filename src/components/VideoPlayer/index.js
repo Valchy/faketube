@@ -27,7 +27,7 @@ export default function VideoPlayer() {
 			<YouTubeVideoWrapper showVideoOnSearch={showVideoOnSearch}>
 				{showVideoOnSearch && (
 					<>
-						<PopupImg onClick={() => navigate(`/video?w=${videoId}`)} src={popupImg} alt="gay" />
+						<PopupImg onClick={() => navigate(`/video?w=${videoId}`)} src={popupImg} alt="Video popup image" />
 						<ShowVideoOnSearchOptions onClick={() => setShowVideoOnSearch(false)}>Close player</ShowVideoOnSearchOptions>
 					</>
 				)}
