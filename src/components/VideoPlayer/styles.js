@@ -45,6 +45,8 @@ export const YouTube = styled(ReactYouTube)`
 
 export const ShowVideoOnSearchOptions = styled.span`
 	color: ${({ theme }) => theme.secondary};
+	background-color: ${({ theme }) => theme.background};
+	padding: 5px;
 	position: absolute;
 	top: -30px;
 	right: 0;
