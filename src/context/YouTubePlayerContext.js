@@ -2,6 +2,7 @@ import { createContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
+import usePlaylistStream from '../hooks/usePlaylistStream';
 
 export const YouTubePlayerContext = createContext();
 
@@ -17,9 +18,12 @@ export function YouTubePlayerProvider({ children }) {
 
 	// Video player state
 	const [videoId, setVideoId] = useState(w || '');
-	const [videoElapsedTime, setVideoElapsedTime] = useState(0);
-	const [isPlaying, toggleIsPlaying] = useToggle(true);
-	const [isMuted, toggleIsMuted] = useToggle(false);
+	const [current, setCurrent] = useState({
+		nextVideoId: null,
+		isPlaying: true,
+		isMute: false,
+		timeElapsed: 0
+	});
 
 	// Playlist state
 	const [playlistId, setPlaylistId] = useState(window.localStorage?.playlistId || '');
@@ -38,6 +42,9 @@ export function YouTubePlayerProvider({ children }) {
 	useLocalStorage('playlistId', playlistId);
 	useLocalStorage('collaboratorName', collaboratorName);
 
+	// Subscribe globally to playlist changes
+	usePlaylistStream(playlistId, setCurrent);
+
 	return (
 		<YouTubePlayerContext.Provider
 			value={{
@@ -52,12 +59,8 @@ export function YouTubePlayerProvider({ children }) {
 				pathname,
 				videoSearchResults,
 				setVideoSearchResults,
-				videoElapsedTime,
-				setVideoElapsedTime,
-				isPlaying,
-				toggleIsPlaying,
-				isMuted,
-				toggleIsMuted,
+				current,
+				setCurrent,
 				playlistId,
 				setPlaylistId,
 				playlistVideos,

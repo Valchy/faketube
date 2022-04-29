@@ -50,3 +50,11 @@ export const ShowVideoOnSearchOptions = styled.span`
 	right: 0;
 	cursor: pointer;
 `;
+
+export const PopupImg = styled.img`
+	position: absolute;
+	cursor: pointer;
+	top: -8px;
+	left: -8px;
+	width: 22px;
+`;
