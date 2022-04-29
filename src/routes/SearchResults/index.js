@@ -46,14 +46,14 @@ export default function SearchRoute() {
 }
 
 export const VideoResult = ({ id: { videoId }, title, description, views, snippet: { duration, publishedAt, thumbnails } }) => {
-	const { playlistId, setVideoId, collaboratorName } = useContext(YouTubePlayerContext);
+	const { playlistId, setVideoId, collaboratorName, videoId: prevVideoId } = useContext(YouTubePlayerContext);
 	const navigate = useNavigate();
 	const addVideoToPlaylist = useFnAgainAfter(2500);
 	const startDownload = useFnAgainAfter(5000);
 
 	// Open clicked video
 	const videoClickHanlder = vidId => {
-		setVideoId(vidId);
+		if (prevVideoId !== vidId) setVideoId(vidId);
 		navigate(`/video?w=${vidId}`);
 	};
 
