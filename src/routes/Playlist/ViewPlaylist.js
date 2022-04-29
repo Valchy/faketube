@@ -5,7 +5,8 @@ import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { getPlaylist } from '../../services/firestore/playlist';
 import PlaylistVideo from '../../components/PlaylistVideo';
 import useVideoStream from '../../hooks/useVideoStream';
-import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos, AddVideos } from './styles';
+import QRCode from '../../components/QRCode';
+import { Title, PlaylistDescription, PlaylistInfo, PlaylistVideoWrapper, PlaylistVideos, AddVideosWrapper, AddVideos } from './styles';
 
 export default function ViewPlaylist() {
 	const { playlistIdFromURL } = useParams();
@@ -44,7 +45,13 @@ export default function ViewPlaylist() {
 			<PlaylistInfo>{playlistAuthor ? `Author: ${playlistAuthor}` : 'loading...'}</PlaylistInfo>
 			<PlaylistInfo>{playlistDateCreated ? `Created on: ${formatDate(playlistDateCreated)}` : 'loading...'}</PlaylistInfo>
 			<PlaylistDescription>{playlistDescription || 'loading...'}</PlaylistDescription>
-			{playlistVideos.length === 0 && <AddVideos>The playlist is empty, go add some videos!</AddVideos>}
+			{playlistVideos.length === 0 && (
+				<AddVideosWrapper>
+					<AddVideos>Playlist is empty, go add some videos!</AddVideos>
+					<AddVideos>...or ask your friends to do so :)</AddVideos>
+					<QRCode url={`${window.location.origin}/playlist/${playlistIdFromURL}`} />
+				</AddVideosWrapper>
+			)}
 
 			<PlaylistVideoWrapper>
 				<PlaylistVideos>

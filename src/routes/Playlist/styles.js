@@ -118,7 +118,20 @@ export const PlaylistVideos = styled.div`
 	}
 `;
 
+export const AddVideosWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+
+	* {
+		&:last-child {
+			margin-top: 25px;
+		}
+	}
+`;
+
 export const AddVideos = styled.p`
-	margin-top: 60px;
 	text-align: center;
+	margin-top: 10px;
 `;
