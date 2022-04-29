@@ -3,7 +3,6 @@ import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import useSWR from 'swr';
 import fetcher from '../../utils/fetcher';
 import formatDate from '../../utils/formatDate';
-import useFnAgainAfter from '../../hooks/useFnAgainAfter';
 import { deletePlaylistVideo } from '../../services/firestore/playlist/videos';
 import { useNavigate } from 'react-router-dom';
 import deleteImg from '../../imgs/delete.png';
@@ -13,9 +12,6 @@ export default function PlaylistVideo({ id, videoId, author, dateCreated }) {
 	const { setVideoId, playlistId } = useContext(YouTubePlayerContext);
 	const { data } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
 	const navigate = useNavigate();
-	const removeVideoFromPlaylist = useFnAgainAfter();
-
-	console.log(data?.data);
 
 	// Open clicked video
 	const videoClickHanlder = () => {

@@ -10,7 +10,7 @@ export const PlaylistWrapper = styled.div`
 `;
 
 export const Title = styled.h2`
-	font-size: 24px;
+	font-size: 25px;
 	font-weight: 700;
 	text-align: center;
 	margin-bottom: 40px;
@@ -77,15 +77,17 @@ export const SubmitButton = styled.button`
 	cursor: pointer;
 `;
 
-export const PlaylistDescription = styled.div`
+export const PlaylistInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 10px;
-	margin-top: 25px;
+	margin-top: 0;
 `;
 
-export const PlaylistInfo = styled(PlaylistDescription)`
-	margin-top: 0;
+export const PlaylistDescription = styled(PlaylistInfo)`
+	margin-top: 25px;
+	font-weight: 500;
+	font-size: 17px;
 `;
 
 export const PlaylistVideoWrapper = styled.div`
@@ -114,4 +116,9 @@ export const PlaylistVideos = styled.div`
 		grid-template-columns: 1fr;
 		width: calc(100vw - 20px);
 	}
+`;
+
+export const AddVideos = styled.p`
+	margin-top: 60px;
+	text-align: center;
 `;

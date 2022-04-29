@@ -4,13 +4,13 @@ export const Video = styled.div`
 	display: flex;
 	flex-direction: column;
 	aspect-ratio: 16 / 9;
-	cursor: pointer;
 `;
 
 export const Thumbnail = styled.img`
 	width: 100%;
 	aspect-ratio: 16 / 9;
 	background-color: #000;
+	cursor: pointer;
 `;
 
 export const Title = styled.h2`
@@ -22,6 +22,7 @@ export const Title = styled.h2`
 export const Description = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin-top: 15px;
 `;
 
@@ -32,6 +33,7 @@ export const InfoWrapper = styled.div`
 
 export const Info = styled.span`
 	font-size: 12px;
+	margin-top: 5px;
 `;
 
 export const Options = styled.div`
@@ -40,5 +42,7 @@ export const Options = styled.div`
 `;
 
 export const DeleteButton = styled.img`
-	width: 28px;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
 `;
