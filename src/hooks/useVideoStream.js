@@ -16,7 +16,6 @@ export const useVideoStream = (playlistId, setPlaylistVideos) => {
 
 				// Update playlist video state
 				setPlaylistVideos(updatedPlaylistVideos);
-				console.log(updatedPlaylistVideos);
 			},
 			error => {
 				console.log(error);

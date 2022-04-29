@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import formatDate from '../../utils/formatDate';
 import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { getPlaylist } from '../../services/firestore/playlist';
 import PlaylistVideo from '../../components/PlaylistVideo';
@@ -41,7 +42,7 @@ export default function ViewPlaylist() {
 		<>
 			<Title>{playlistTitle || 'loading...'}</Title>
 			<PlaylistInfo>{playlistAuthor ? `Author: ${playlistAuthor}` : 'loading...'}</PlaylistInfo>
-			<PlaylistInfo>{playlistDateCreated ? new Date(playlistDateCreated * 1000).toLocaleString('en-US') : 'loading...'}</PlaylistInfo>
+			<PlaylistInfo>{playlistDateCreated ? formatDate(playlistDateCreated) : 'loading...'}</PlaylistInfo>
 			<PlaylistDescription>{playlistDescription || 'loading...'}</PlaylistDescription>
 
 			<PlaylistVideoWrapper>

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const SearchResultsWrapper = styled.div`
 	display: flex;
@@ -22,13 +21,12 @@ export const SearchResults = styled.div`
 	}
 `;
 
-export const VideoResultWrapper = styled(Link)`
+export const VideoResultWrapper = styled.div`
 	display: flex;
 	width: 800px;
 	max-width: 90vw;
 	height: 200px;
 	margin-bottom: 20px;
-	cursor: pointer;
 
 	@media (max-width: 700px) {
 		flex-direction: column;
@@ -43,6 +41,7 @@ export const VideoResultWrapper = styled(Link)`
 export const VideoThumbnailWrapper = styled.div`
 	position: relative;
 	height: 100%;
+	cursor: pointer;
 
 	@media (max-width: 700px) {
 		height: auto;
@@ -51,6 +50,7 @@ export const VideoThumbnailWrapper = styled.div`
 
 export const VideoThumbnail = styled.img`
 	height: inherit;
+	aspect-ratio: 16 / 9;
 
 	@media (max-width: 700px) {
 		width: calc(100vw - 20px);
