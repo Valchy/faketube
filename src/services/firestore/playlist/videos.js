@@ -19,7 +19,7 @@ export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, ti
 		if (!matchingVideo) {
 			const videosColRef = collection(db, dbDocPlaylists, playlistId, dbDocVideos);
 			return addDoc(videosColRef, {
-				author: collaboratorName || 'Unknown',
+				author: collaboratorName || 'Anonymous',
 				dateCreated: serverTimestamp(),
 				videoId: videoId,
 				timeElapsed: timeElapsed || 0,

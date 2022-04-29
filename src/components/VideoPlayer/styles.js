@@ -21,7 +21,7 @@ export const YouTubeVideoWrapper = styled.div`
 	max-width: 95vw;
 	z-index: 8;
 	background-color: #000;
-	box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: ${({ showVideoOnSearch }) => (showVideoOnSearch ? '0px 5px 10px 5px rgba(0, 0, 0, 0.2)' : 'none')};
 
 	@media (max-width: 500px) {
 		bottom: 10px;

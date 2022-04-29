@@ -11,7 +11,7 @@ export const dbDocUpdates = 'updates';
 export const createPlaylist = (collaboratorName, title, description, removeOnWatch) => {
 	const playlistColRef = collection(db, dbDocPlaylists);
 	return addDoc(playlistColRef, {
-		author: collaboratorName || 'Unknown',
+		author: collaboratorName || 'Anonymous',
 		dateCreated: serverTimestamp(),
 		title: title || 'Untitled Playlist',
 		description: description || 'No description was provided',

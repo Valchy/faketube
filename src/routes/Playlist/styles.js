@@ -31,7 +31,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const Button = styled(Link)`
-	background-color: ${({ theme }) => theme.input};
+	background-color: ${({ theme }) => theme.button};
 	color: ${({ theme }) => theme.secondary};
 	padding: 20px 25px;
 	text-align: center;

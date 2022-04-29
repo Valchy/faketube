@@ -28,15 +28,15 @@ export function YouTubePlayerProvider({ children }) {
 	const [playlistCollaborators, setPlaylistCollaborators] = useState([]);
 
 	// General state
-	const [firebaseError, setFirebaseError] = useState('');
 	const [darkMode, toggleDarkMode] = useToggle(window.localStorage?.darkMode === 'false' ? false : true);
 	const [showVideoOnSearch, setShowVideoOnSearch] = useState(false);
-	const [collaboratorName, setCollaboratorName] = useState('');
+	const [collaboratorName, setCollaboratorName] = useState(window.localStorage?.collaboratorName || '');
 	const [authId, setAuthId] = useState('');
 
 	// Save different states to local storage on change
 	useLocalStorage('darkMode', darkMode);
 	useLocalStorage('playlistId', playlistId);
+	useLocalStorage('collaboratorName', collaboratorName);
 
 	return (
 		<YouTubePlayerContext.Provider
@@ -69,9 +69,7 @@ export function YouTubePlayerProvider({ children }) {
 				collaboratorName,
 				setCollaboratorName,
 				authId,
-				setAuthId,
-				firebaseError,
-				setFirebaseError
+				setAuthId
 			}}
 		>
 			{children}

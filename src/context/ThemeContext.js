@@ -10,6 +10,7 @@ export default function ThemeContext({ children }) {
 		background: darkMode ? '#181818' : '#fefefe',
 		border: darkMode ? '#303030' : '#aaa',
 		input: darkMode ? '#121212' : '#fff',
+		button: darkMode ? '#121212' : '#efefef',
 		padding: '60px 0 250px 0',
 		topMargin: '60px'
 	};

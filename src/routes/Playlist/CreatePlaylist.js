@@ -3,6 +3,8 @@ import { YouTubePlayerContext } from '../../context/YouTubePlayerContext';
 import { createPlaylist } from '../../services/firestore/playlist';
 import { CreatePlaylistWrapper, FormLabel, Label, Input, Title, SubmitButton } from './styles';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { showError, showSuccess } from '../../services/swal';
 
 export default function CreatePlaylist() {
 	const { collaboratorName, setPlaylistId } = useContext(YouTubePlayerContext);
@@ -13,20 +15,45 @@ export default function CreatePlaylist() {
 
 	// Create playlist handler
 	const createPlaylistHandler = e => {
-		e.preventDefault();
-
 		// Error handing
+		e.preventDefault();
 		if (disableSubmit) return;
-		setDisableSubmit(true);
 
-		// Create playlist and redirect to edit playlist page
-		createPlaylist(collaboratorName, playlistTitle, playlistDescription)
-			.then(docRef => {
-				setPlaylistId(docRef.id);
-				navigate(`/playlist/${docRef.id}`);
-				// alert
-			})
-			.catch(reason => console.log(reason.message));
+		Swal.fire({
+			icon: 'info',
+			title: 'Are you sure?',
+			text: 'A new playlist will be created and the current one will not be accessible unless via the playlist link',
+			showConfirmButton: true,
+			showCancelButton: true,
+			confirmButtonText: 'Create playlist',
+			confirmButtonColor: '#2e9adb',
+			cancelButtonText: 'Cancel',
+			reverseButtons: true,
+			preConfirm: () => {
+				setDisableSubmit(true); // Prevents double click bug
+				Swal.fire({
+					title: 'Loading',
+					html: 'please wait...',
+					allowOutsideClick: false,
+					showCancelButton: false,
+					showConfirmButton: false,
+					showDenyButton: false,
+					didOpen: () => Swal.showLoading()
+				});
+
+				// Create playlist and redirect to edit playlist page
+				createPlaylist(collaboratorName, playlistTitle, playlistDescription)
+					.then(docRef => {
+						setPlaylistId(docRef.id);
+						navigate(`/playlist/${docRef.id}`);
+						showSuccess('Your playlist has been created!');
+					})
+					.catch(reason => {
+						console.log(reason.message);
+						showError('No playlist created :/');
+					});
+			}
+		});
 	};
 
 	return (

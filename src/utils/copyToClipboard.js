@@ -1,4 +1,4 @@
-// import { alertError, alertSuccess } from '../Alerts';
+import { showError, showSuccess } from '../services/swal';
 
 function fallbackCopyTextToClipboard(text) {
 	var textArea = document.createElement('textarea');
@@ -22,8 +22,8 @@ export default function copyToClipboard(text) {
 		if (!navigator.clipboard) fallbackCopyTextToClipboard(text);
 		else navigator.clipboard.writeText(text);
 
-		alert('Link copied');
+		showSuccess('Playlist URL copied to clipboard');
 	} catch (err) {
-		alert('Copy to clipboard error');
+		showError();
 	}
 }

@@ -12,7 +12,7 @@ export const addPlaylistUpdate = async (playlistId, action, collaboratorName) =>
 	// e.g videoPaused, videoPlayed, videoMuted, videoUnmuted, videoSkipped, videoChanged etc
 	const collaboratorDocRef = collection(db, dbDocPlaylists, playlistId, dbDocUpdates);
 	addDoc(collaboratorDocRef, {
-		author: collaboratorName || 'Unknown',
+		author: collaboratorName || 'Anonymous',
 		dateCreated: serverTimestamp(),
 		action: action
 	});

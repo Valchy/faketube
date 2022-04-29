@@ -51,7 +51,7 @@ export default function VideoPlayerRoute() {
 						<GenreOptionsWrapper>
 							<Genre>
 								<DescriptionTitle>Genre</DescriptionTitle>
-								{data.data.genre || 'Unknown'}
+								{data.data.genre || 'Anonymous'}
 							</Genre>
 
 							<Options>
