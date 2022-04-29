@@ -4,7 +4,7 @@ import { createPlaylist } from '../../services/firestore/playlist';
 import { CreatePlaylistWrapper, FormLabel, Label, Input, Title, SubmitButton } from './styles';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { showError, showSuccess } from '../../services/swal';
+import { showError, showSuccess, showLoading } from '../../services/swal';
 
 export default function CreatePlaylist() {
 	const { collaboratorName, setPlaylistId } = useContext(YouTubePlayerContext);
@@ -31,15 +31,7 @@ export default function CreatePlaylist() {
 			reverseButtons: true,
 			preConfirm: () => {
 				setDisableSubmit(true); // Prevents double click bug
-				Swal.fire({
-					title: 'Loading',
-					html: 'please wait...',
-					allowOutsideClick: false,
-					showCancelButton: false,
-					showConfirmButton: false,
-					showDenyButton: false,
-					didOpen: () => Swal.showLoading()
-				});
+				showLoading();
 
 				// Create playlist and redirect to edit playlist page
 				createPlaylist(collaboratorName, playlistTitle, playlistDescription)

@@ -6,6 +6,7 @@ import formatDate from '../../utils/formatDate';
 import { deletePlaylistVideo } from '../../services/firestore/playlist/videos';
 import { useNavigate } from 'react-router-dom';
 import deleteImg from '../../imgs/delete.png';
+import { showError, showSuccess, showConfirm } from '../../services/swal';
 import { Video, Thumbnail, Title, InfoWrapper, Info, Description, Options, DeleteButton } from './styles';
 
 export default function PlaylistVideo({ id, videoId, author, dateCreated }) {
@@ -21,18 +22,20 @@ export default function PlaylistVideo({ id, videoId, author, dateCreated }) {
 
 	// Delete selected video
 	const deleteVideoHandler = () => {
-		deletePlaylistVideo(playlistId, id)
-			.then(() => {
-				console.log('video deleted');
-			})
-			.catch(() => {
-				console.log('delete video error');
-			});
+		showConfirm('You want to delete this video?', () => {
+			deletePlaylistVideo(playlistId, id)
+				.then(() => showSuccess('Video has been deleted :)'))
+				.catch(() => showError('Video delete error :/'));
+		});
 	};
 
 	return (
-		<Video title={`Added by ${author} on ${formatDate(dateCreated)}`}>
-			<Thumbnail src={data?.data?.thumbnailUrl} onClick={videoClickHanlder} />
+		<Video>
+			<Thumbnail
+				src={data?.data?.thumbnailUrl}
+				onClick={videoClickHanlder}
+				title={`Added by ${author} on ${formatDate(dateCreated)}`}
+			/>
 			<Title>{data?.data?.title}</Title>
 			<Description>
 				<InfoWrapper>

@@ -1,6 +1,7 @@
 import { db } from '../auth';
 import { dbDocPlaylists, dbDocVideos } from '.';
 import { query, orderBy, onSnapshot, collection, getDocs, addDoc, deleteDoc, doc, serverTimestamp } from '@firebase/firestore';
+import { showError, showSuccess } from '../../swal';
 
 // Add video to playlist based on playlist ID
 export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, timeElapsed, isPlaying, isMuted) => {
@@ -13,7 +14,11 @@ export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, ti
 		const videos = await getDocs(videosColRef);
 
 		// Searching if video already exists in the playlist with the given video ID
-		const matchingVideo = videos.docs.find(video => video.data().viedoId === videoId);
+		const matchingVideo = videos.docs.find(video => {
+			const data = video.data();
+			const vidId = data.videoId;
+			return vidId === videoId;
+		});
 
 		// Add video to playlist if it does not exist
 		if (!matchingVideo) {
@@ -25,11 +30,13 @@ export const addPlaylistVideo = async (playlistId, videoId, collaboratorName, ti
 				timeElapsed: timeElapsed || 0,
 				isPlaying: isPlaying || true,
 				isMuted: isMuted || false
-			});
+			})
+				.then(() => showSuccess('Video added to playlist'))
+				.catch(() => showError('Video not added :/'));
 		}
 
 		// Otherwise throw video already in playlist error
-		throw new Error('The video is already in the playlist');
+		return showError('Video is already in the playlist!');
 	} catch (err) {
 		console.log(err.message);
 	}
@@ -55,6 +62,6 @@ export const deletePlaylistVideo = (playlistId, videoId) => {
 };
 
 function doErrorHandling(playlistId, videoId) {
-	if (!playlistId) throw new Error('No playlist is selected');
-	else if (!videoId) throw new Error('No video ID was provided');
+	if (!playlistId) return showError('No playlist is selected');
+	else if (!videoId) return showError('No video ID was provided');
 }

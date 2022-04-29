@@ -20,6 +20,32 @@ export const showError = msg =>
 		title: msg || 'Something went wrong :/'
 	});
 
+export const showConfirm = (msg, action) =>
+	Swal.fire({
+		icon: 'warning',
+		title: 'Are you sure?',
+		text: msg || 'You want to proceed?',
+		showConfirmButton: true,
+		showCancelButton: true,
+		confirmButtonText: 'Yes',
+		confirmButtonColor: '#2e9adb',
+		cancelButtonColor: '#e11c32',
+		cancelButtonText: 'No',
+		reverseButtons: true,
+		preConfirm: () => action()
+	});
+
+export const showLoading = () =>
+	Swal.fire({
+		title: 'Loading',
+		html: 'please wait...',
+		allowOutsideClick: false,
+		showCancelButton: false,
+		showConfirmButton: false,
+		showDenyButton: false,
+		didOpen: () => Swal.showLoading()
+	});
+
 export const promptName = setName =>
 	Swal.fire({
 		icon: 'info',

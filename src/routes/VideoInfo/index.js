@@ -6,6 +6,7 @@ import fetcher from '../../utils/fetcher';
 import numberWithCommas from '../../utils/numberWithCommas';
 import downloadVideo from '../../utils/downloadVideo';
 import useFnAgainAfter from '../../hooks/useFnAgainAfter';
+import { showConfirm } from '../../services/swal';
 import downloadImg from '../../imgs/download.png';
 import addToPlaylistImg from '../../imgs/add-to-playlist.png';
 import {
@@ -26,7 +27,7 @@ import {
 export default function VideoPlayerRoute() {
 	const { videoId, playlistId, setShowVideoOnSearch } = useContext(YouTubePlayerContext);
 	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
-	const addRemovePlaylistVideo = useFnAgainAfter(1500);
+	const addVideoToPlaylist = useFnAgainAfter(2500);
 	const startDownload = useFnAgainAfter(5000);
 
 	// Make video go to corner on page leave
@@ -56,13 +57,15 @@ export default function VideoPlayerRoute() {
 
 							<Options>
 								<OptionImg
-									onClick={e => addRemovePlaylistVideo(e, addPlaylistVideo, playlistId, videoId)}
+									onClick={e => addVideoToPlaylist(e, addPlaylistVideo, playlistId, videoId)}
 									src={addToPlaylistImg}
 									title="Add to playlist"
 									alt="Add to playlist"
 								/>
 								<OptionImg
-									onClick={e => startDownload(e, downloadVideo, videoId)}
+									onClick={e =>
+										showConfirm('You want to download this video?', () => startDownload(e, downloadVideo, videoId))
+									}
 									src={downloadImg}
 									title="Download video"
 									alt="Download video"
