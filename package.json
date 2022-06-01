@@ -26,6 +26,7 @@
 		"youtube-search-without-api-key": "^1.0.7"
 	},
 	"scripts": {
+		"dev": "nodemon app.js",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
@@ -78,6 +79,7 @@
 		"eslint": "^8.14.0",
 		"eslint-config-react-app": "^7.0.1",
 		"eslint-plugin-styled-components-a11y": "^0.0.34",
+		"nodemon": "^2.0.16",
 		"webpack": "^5.72.0"
 	}
 }
