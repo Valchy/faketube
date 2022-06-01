@@ -21,6 +21,12 @@ app.use('/static', assetHeaders, express.static(path.join(__dirname, '/build/sta
 const api = require('./api');
 app.use('/api', api);
 
+// Custom file routing
+app.get('/robots.txt', (req, res) => res.sendFile(path.join(__dirname, './build/robots.txt')));
+app.get('/asset-manifest.json', (req, res) => res.sendFile(path.join(__dirname, './build/asset-manifest.json')));
+app.get('/favicon.png', assetHeaders, (req, res) => res.sendFile(path.join(__dirname, './build/favicon.png')));
+app.get('/youtube.png', assetHeaders, (req, res) => res.sendFile(path.join(__dirname, './build/youtube.png')));
+
 // Serve index file
 app.get('*', (req, res) => {
 	// 2 minute browser cache, 1 minute CDN cache, safe to be cached on CDNs as well, will keep old html file when revalidating or upon a server error
