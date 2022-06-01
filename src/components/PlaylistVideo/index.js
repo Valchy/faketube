@@ -11,7 +11,7 @@ import { Video, Thumbnail, Title, InfoWrapper, Info, Description, Options, Delet
 
 export default function PlaylistVideo({ id, videoId, author, dateCreated }) {
 	const { setVideoId, playlistId, collaboratorName } = useContext(YouTubePlayerContext);
-	const { data } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
+	const { data } = useSWR(`/api/videos/${videoId}`, fetcher);
 	const navigate = useNavigate();
 
 	// Open clicked video

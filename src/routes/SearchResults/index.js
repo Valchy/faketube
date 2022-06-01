@@ -27,7 +27,7 @@ import {
 
 export default function SearchRoute() {
 	const { videoSearch } = useContext(YouTubePlayerContext);
-	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${videoSearch}`, fetcher);
+	const { data, error } = useSWR(`/api/search?q=${videoSearch}`, fetcher);
 
 	// Error handling
 	if (error || !data) return;

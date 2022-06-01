@@ -29,7 +29,7 @@ import {
 export default function VideoPlayerRoute() {
 	const { videoId, setVideoId, playlistId, setShowVideoOnSearch, collaboratorName, playlistVideos, videoSearchResults } =
 		useContext(YouTubePlayerContext);
-	const { data, error } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${videoId}`, fetcher);
+	const { data, error } = useSWR(`/api/videos/${videoId}`, fetcher);
 	const addVideoToPlaylist = useFnAgainAfter(2500);
 	const startDownload = useFnAgainAfter(5000);
 
