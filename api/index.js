@@ -18,7 +18,7 @@ app.use(compression());
 app.use('/static', assetHeaders, express.static(path.join(__dirname, '/build/static')));
 
 // Query videos api
-const api = require('./api');
+const api = require('./ytVideos');
 app.use('/api', api);
 
 // Custom file routing

@@ -1,8 +1,11 @@
 {
 	"name": "youtube-player",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"author": "Valeri Sabev",
 	"private": true,
+	"engines": {
+		"node": "16.x"
+	},
 	"dependencies": {
 		"@firebase/app": "^0.7.21",
 		"@firebase/auth": "^0.19.12",
@@ -26,7 +29,7 @@
 		"youtube-search-without-api-key": "^1.0.7"
 	},
 	"scripts": {
-		"dev": "nodemon app.js",
+		"dev": "nodemon api/index.js",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
