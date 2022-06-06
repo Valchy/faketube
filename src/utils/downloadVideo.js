@@ -14,16 +14,26 @@ export default function downloadVideo(videoId) {
 		body: JSON.stringify({ url: `https://www.youtube.com/watch?v=${videoId}` })
 	})
 		.then(res => res.json())
-		.then(({ url }) => {
+		.then(({ url, mp3Converter, diffConverter }) => {
 			if (!url || url.length === 0) return showError('Failed fetching download link');
+			let videoUrl = '';
 
 			// Finding a video which can be downloaded
-			const video = url.find(({ downloadable, audio, no_audio }) => downloadable && !audio && !no_audio);
-			if (!video || !video.url) return showError('No download link found');
+			if (mp3Converter && mp3Converter.length > 0) videoUrl = mp3Converter;
+			else {
+				// Try finding another mp3 download url
+				videoUrl = url.find(({ downloadable, audio, no_audio }) => downloadable && !audio && !no_audio)?.url;
 
-			// Downloading the video
+				// Fallback to mp4 if no mp3 link is found
+				if (!videoUrl && diffConverter && diffConverter.length > 0) videoUrl = diffConverter;
+			}
+
+			// Error handling if no video was found
+			if (!videoUrl) return showError('No download link found');
+
+			// Downloading the videoUrl
 			let downloadButton = document.createElement('a');
-			downloadButton.href = video.url;
+			downloadButton.href = videoUrl;
 			downloadButton.click();
 			setTimeout(() => Swal.close(), 1500);
 		})
